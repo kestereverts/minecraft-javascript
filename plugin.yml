@@ -1,0 +1,4 @@
+name: minecraft-javascript
+main: mave.bukkittest.BukkitTest
+version: 1.0
+commands:

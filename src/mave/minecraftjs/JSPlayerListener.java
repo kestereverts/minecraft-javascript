@@ -31,7 +31,7 @@ public class JSPlayerListener extends PlayerListener
 			String animationType = event.getAnimationType().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { animationType } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, animationType } );
 			globalScope.delete("_event");
 		}
     }
@@ -51,7 +51,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Block bed = (JS_Block)ConvertUtility.toScriptable(event.getBed(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { bed } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, bed } );
 			globalScope.delete("_event");
 		}
     }
@@ -71,7 +71,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Block bed = (JS_Block)ConvertUtility.toScriptable(event.getBed(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { bed } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, bed } );
 			globalScope.delete("_event");
 		}
     }
@@ -94,7 +94,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_BlockFace face = (JS_BlockFace)ConvertUtility.toScriptable(event.getBlockFace(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { bucket, itemStack, blockClicked, face } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, bucket, itemStack, blockClicked, face } );
 			globalScope.delete("_event");
 		}
     }
@@ -117,7 +117,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_BlockFace face = (JS_BlockFace)ConvertUtility.toScriptable(event.getBlockFace(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { bucket, itemStack, blockClicked, face } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, bucket, itemStack, blockClicked, face } );
 			globalScope.delete("_event");
 		}
     }
@@ -136,7 +136,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 			
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));			
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { cx.newArray(scope, event.getRecipients().toArray()), event.getMessage(), event.getFormat() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, cx.newArray(scope, event.getRecipients().toArray()), event.getMessage(), event.getFormat() } );
 			globalScope.delete("_event");
 		}
     }
@@ -155,7 +155,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { cx.newArray(scope, event.getRecipients().toArray()), event.getMessage(), event.getFormat() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, cx.newArray(scope, event.getRecipients().toArray()), event.getMessage(), event.getFormat() } );
 			globalScope.delete("_event");
 		}
     }
@@ -175,7 +175,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Item item = (JS_Item)ConvertUtility.toScriptable(event.getItemDrop(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { item } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, item } );
 			globalScope.delete("_event");
 		}
     }
@@ -196,7 +196,7 @@ public class JSPlayerListener extends PlayerListener
 			String hatchType = event.getHatchType().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { null, event.isHatching(), event.getNumHatches(), hatchType } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, null, event.isHatching(), event.getNumHatches(), hatchType } );
 			globalScope.delete("_event");
 		}
     }
@@ -220,7 +220,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_BlockFace face = (JS_BlockFace)ConvertUtility.toScriptable(event.getBlockFace(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { action, clickedBlock, item, material, face } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, action, clickedBlock, item, material, face } );
 			globalScope.delete("_event");
 		}
     }
@@ -247,7 +247,7 @@ public class JSPlayerListener extends PlayerListener
 			}
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { entity } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, entity } );
 			globalScope.delete("_event");
 		}
     }
@@ -267,7 +267,7 @@ public class JSPlayerListener extends PlayerListener
 			// TODO: getInventory
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { null } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, null } );
 			globalScope.delete("_event");
 		}
     }
@@ -286,7 +286,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { event.getPreviousSlot(), event.getNewSlot() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, event.getPreviousSlot(), event.getNewSlot() } );
 			globalScope.delete("_event");
 		}
     }
@@ -305,7 +305,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { event.getJoinMessage() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, event.getJoinMessage() } );
 			globalScope.delete("_event");
 		}
     }
@@ -324,7 +324,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { event.getReason(), event.getLeaveMessage() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, event.getReason(), event.getLeaveMessage() } );
 			globalScope.delete("_event");
 		}
     }
@@ -344,7 +344,7 @@ public class JSPlayerListener extends PlayerListener
 			String result = event.getResult().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { event.getKickMessage(), result } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, event.getKickMessage(), result } );
 			globalScope.delete("_event");
 		}
     }
@@ -365,7 +365,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Location to = (JS_Location)ConvertUtility.toScriptable(event.getTo(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { from, to } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, from, to } );
 			globalScope.delete("_event");
 		}
     }
@@ -385,7 +385,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Item item = (JS_Item)ConvertUtility.toScriptable(event.getItem(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { item } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, item } );
 			globalScope.delete("_event");
 		}
     }
@@ -424,7 +424,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { event.getQuitMessage() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, event.getQuitMessage() } );
 			globalScope.delete("_event");
 		}
     }
@@ -444,7 +444,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Location respawnLocation = (JS_Location)ConvertUtility.toScriptable(event.getRespawnLocation(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { respawnLocation } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, respawnLocation } );
 			globalScope.delete("_event");
 		}
     }
@@ -465,7 +465,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Location to = (JS_Location)ConvertUtility.toScriptable(event.getTo(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { from, to } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, from, to } );
 			globalScope.delete("_event");
 		}
     }
@@ -484,7 +484,7 @@ public class JSPlayerListener extends PlayerListener
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));	
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, player, new Object[] { } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player } );
 			globalScope.delete("_event");
 		}
     }

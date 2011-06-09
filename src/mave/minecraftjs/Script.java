@@ -142,19 +142,19 @@ public class Script
 			ScriptableObject.defineClass(m_globalScope, JS_PaintingPlaceEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_PigZapEvent.class);
 		}
-        catch (IllegalAccessException e)
-        {
+		catch (IllegalAccessException e)
+		{
 			e.printStackTrace();
 		}
-        catch (InstantiationException e)
-        {
+		catch (InstantiationException e)
+		{
 			e.printStackTrace();
 		}
-        catch (InvocationTargetException e)
-        {
+		catch (InvocationTargetException e)
+		{
 			e.printStackTrace();
 		}
-        
+		
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		m_scriptContext.evaluateReader(m_globalScope, reader, file.getName(), 1, null);
 	}

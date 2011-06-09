@@ -3,6 +3,7 @@ package mave.minecraftjs.events.entity;
 import mave.minecraftjs.MinecraftJS;
 import mave.minecraftjs.ConvertUtility;
 
+import org.bukkit.entity.PigZombie;
 import org.bukkit.event.entity.*;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -52,7 +53,14 @@ public class JS_PigZapEvent extends ScriptableObject
 	}
 	
 	// TODO: jsGet_lightning
-	// TODO: jsGet_pigZombie
+	
+	public Scriptable jsGet_pigZombie()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable((PigZombie)event.getPigZombie(), cx, scope);
+	}
 	
 	public boolean jsGet_cancelled()
 	{

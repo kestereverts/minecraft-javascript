@@ -1,4 +1,4 @@
 name: minecraft-javascript
-main: mave.bukkittest.BukkitTest
+main: mave.minecraftjs.MinecraftJS
 version: 1.0
 commands:

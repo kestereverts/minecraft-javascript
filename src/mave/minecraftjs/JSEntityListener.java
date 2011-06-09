@@ -1,5 +1,6 @@
 package mave.minecraftjs;
 
+import org.bukkit.entity.PigZombie;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.painting.PaintingBreakEvent;
@@ -27,7 +28,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -40,7 +41,7 @@ public class JSEntityListener extends EntityListener
 			JS_Location location = (JS_Location)ConvertUtility.toScriptable(event.getLocation(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { creatureType, location } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, creatureType, location } );
 			globalScope.delete("_event");
 		}
 	}
@@ -56,7 +57,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -69,7 +70,7 @@ public class JSEntityListener extends EntityListener
 			String cause = event.getCause().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { null, cause } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, null, cause } );
 			globalScope.delete("_event");
 		}
 	}
@@ -85,7 +86,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -95,7 +96,7 @@ public class JSEntityListener extends EntityListener
 			}
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity } );
 			globalScope.delete("_event");
 		}
 	}
@@ -111,7 +112,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -123,7 +124,7 @@ public class JSEntityListener extends EntityListener
 			String cause = event.getCause().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { event.getDamage(), cause } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, event.getDamage(), cause } );
 			globalScope.delete("_event");
 		}
 	}
@@ -139,7 +140,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -151,7 +152,7 @@ public class JSEntityListener extends EntityListener
 			Scriptable drops = cx.newArray(scope, event.getDrops().toArray());
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { drops } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, drops } );
 			globalScope.delete("_event");
 		}
 	}
@@ -167,7 +168,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -180,7 +181,7 @@ public class JSEntityListener extends EntityListener
 			JS_Location location = (JS_Location)ConvertUtility.toScriptable(event.getLocation(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { blockList, location, event.getYield() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, blockList, location, event.getYield() } );
 			globalScope.delete("_event");
 		}
 	}
@@ -196,7 +197,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -208,7 +209,7 @@ public class JSEntityListener extends EntityListener
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { block } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, block } );
 			globalScope.delete("_event");
 		}
 	}
@@ -224,7 +225,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			Scriptable target = null;
 			try
 			{
@@ -238,7 +239,7 @@ public class JSEntityListener extends EntityListener
 			String reason = event.getReason().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { target, reason } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, target, reason } );
 			globalScope.delete("_event");
 		}
 	}
@@ -254,7 +255,7 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			Scriptable entity = scope;
+			Scriptable entity = null;
 			try
 			{
 				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
@@ -264,7 +265,7 @@ public class JSEntityListener extends EntityListener
 			}
 			
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, entity, new Object[] { event.getRadius(), event.getFire() } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, event.getRadius(), event.getFire() } );
 			globalScope.delete("_event");
 		}
 	}
@@ -322,11 +323,19 @@ public class JSEntityListener extends EntityListener
         	
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			// TODO: getPigZombie
+			Scriptable entity = null;
+			try
+			{
+				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
+			}
+			catch (IllegalArgumentException ex)
+			{
+			}
+			JS_PigZombie pigZombie = (JS_PigZombie)ConvertUtility.toScriptable((PigZombie)event.getPigZombie(), cx, scope);
 			// TODO: getLighting
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { null, null } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, pigZombie, null } );
 			globalScope.delete("_event");
 		}
 	}

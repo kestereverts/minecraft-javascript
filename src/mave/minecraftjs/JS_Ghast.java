@@ -39,6 +39,8 @@ public class JS_Ghast extends ScriptableObject
 		return "Ghast";
 	}
 	
+	// TODO: jsGet_uniqueId
+	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{
 		if (args.length < 1)

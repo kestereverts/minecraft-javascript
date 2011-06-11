@@ -560,4 +560,30 @@ public class JS_World extends ScriptableObject
 
 		return caller.world.unloadChunkRequest((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
 	}
+	
+	public static boolean jsFunction_createExplosion(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 2)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_World caller = (JS_World)thisObj;
+		
+		if (args.length < 4)
+		{
+			if (!(args[0] instanceof JS_Location))
+			{
+				throw new IllegalArgumentException();
+			}
+			JS_Location location = (JS_Location)args[0];
+			
+			return caller.world.createExplosion(location.location, (float)Context.toNumber(args[1]));
+		}
+		
+		return caller.world.createExplosion(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]), (float)Context.toNumber(args[3]));
+	}
+	
+	// TODO: jsGet_generator
+	// TODO: jsGet_populators
+	// TODO: playEffect
 }

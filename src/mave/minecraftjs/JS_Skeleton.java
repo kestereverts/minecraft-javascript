@@ -40,6 +40,8 @@ public class JS_Skeleton extends ScriptableObject
 		return "Skeleton";
 	}
 	
+	// TODO: jsGet_uniqueId
+	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{
 		if (args.length < 1)

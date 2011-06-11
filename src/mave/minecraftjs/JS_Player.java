@@ -39,6 +39,8 @@ public class JS_Player extends ScriptableObject
 		return "Player";
 	}
 	
+	// TODO: jsGet_uniqueId
+	
 	public String jsGet_displayName()
 	{
 		return player.getDisplayName();
@@ -152,6 +154,9 @@ public class JS_Player extends ScriptableObject
 		
 		caller.player.playNote(location.location, (byte)Context.toNumber(args[1]), (byte)Context.toNumber(args[2]));
 	}
+	
+	// TODO: playEffect
+	// TODO: sendChunkChange
 	
 	public boolean jsGet_sneaking()
 	{

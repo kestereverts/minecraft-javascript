@@ -1,5 +1,6 @@
 package mave.minecraftjs;
 
+import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.*;
@@ -66,11 +67,11 @@ public class JSEntityListener extends EntityListener
 			{
 			}
 
-			// TODO: getLightning
+			JS_LightningStrike lightning = (JS_LightningStrike)ConvertUtility.toScriptable((LightningStrike)event.getLightning(), cx, scope);
 			String cause = event.getCause().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, null, cause } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, lightning, cause } );
 			globalScope.delete("_event");
 		}
 	}
@@ -331,12 +332,16 @@ public class JSEntityListener extends EntityListener
 			catch (IllegalArgumentException ex)
 			{
 			}
+			
 			JS_PigZombie pigZombie = (JS_PigZombie)ConvertUtility.toScriptable((PigZombie)event.getPigZombie(), cx, scope);
-			// TODO: getLighting
+			JS_LightningStrike lightning = (JS_LightningStrike)ConvertUtility.toScriptable((LightningStrike)event.getLightning(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, pigZombie, null } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, pigZombie, lightning } );
 			globalScope.delete("_event");
 		}
 	}
+	
+	// TODO: onEntityPortalEnter
+	// TODO: onEntityTame
 }

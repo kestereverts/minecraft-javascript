@@ -53,6 +53,8 @@ public class JS_Chunk extends ScriptableObject
 		return ConvertUtility.toScriptable(caller.chunk.getBlock((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2])), cx, thisObj);
 	}
 	
+	// TODO: jsGet_chunkSnapshot
+	
 	public Scriptable jsGet_entities()
 	{
 		Context cx = Context.getCurrentContext();

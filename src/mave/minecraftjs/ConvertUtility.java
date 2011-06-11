@@ -12,6 +12,7 @@ import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.*;
 import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingPlaceEvent;
@@ -156,6 +157,11 @@ public class ConvertUtility
 			JS_Item entity = (JS_Item)s;
 			return entity.item;
 		}
+		else if (s instanceof JS_LightningStrike)
+		{
+			JS_LightningStrike entity = (JS_LightningStrike)s;
+			return entity.strike;
+		}
 
 		throw new IllegalArgumentException();
 	}
@@ -206,6 +212,10 @@ public class ConvertUtility
 		else if (e instanceof Item)
 		{
 			return toScriptable((Item)e, cx, scope);
+		}
+		else if (e instanceof LightningStrike)
+		{
+			return toScriptable((LightningStrike)e, cx, scope);
 		}
 		
 		throw new IllegalArgumentException();
@@ -361,6 +371,21 @@ public class ConvertUtility
 		return entity;
 	}
 	
+	public static Scriptable toScriptable(LightningStrike s, Context cx, Scriptable scope)
+	{
+		if (s == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_LightningStrike entity = (JS_LightningStrike)cx.newObject(scope, "LightningStrike");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.strike = s;
+		return entity;
+	}
+	
 	public static Scriptable toScriptable(Block b, Context cx, Scriptable scope)
 	{
 		if (b == null)
@@ -508,6 +533,21 @@ public class ConvertUtility
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
 		entity.blockFace = b;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(BlockState b, Context cx, Scriptable scope)
+	{
+		if (b == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_BlockState entity = (JS_BlockState)cx.newObject(scope, "BlockState");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.blockState = b;
 		return entity;
 	}
 	

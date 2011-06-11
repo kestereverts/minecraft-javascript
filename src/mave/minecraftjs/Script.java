@@ -35,15 +35,27 @@ public class Script
 		m_jsGlobal.initializeFunctionProperties();
 		try
 		{
+			ScriptableObject.defineClass(m_globalScope, JS_Player.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Creeper.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Ghast.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Giant.class);
+			ScriptableObject.defineClass(m_globalScope, JS_PigZombie.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Skeleton.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Slime.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Spider.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Zombie.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Item.class);
+			ScriptableObject.defineClass(m_globalScope, JS_LightningStrike.class);
+			
 			ScriptableObject.defineClass(m_globalScope, JS_Server.class);
 			ScriptableObject.defineClass(m_globalScope, JS_World.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Player.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Location.class);
 			ScriptableObject.defineClass(m_globalScope, JS_PluginManager.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Material.class);
 			ScriptableObject.defineClass(m_globalScope, JS_ItemStack.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Item.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Block.class);
+			ScriptableObject.defineClass(m_globalScope, JS_BlockFace.class);
+			ScriptableObject.defineClass(m_globalScope, JS_BlockState.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Chunk.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Vector.class);
 			

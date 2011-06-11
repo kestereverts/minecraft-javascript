@@ -142,4 +142,111 @@ public class JS_Location extends ScriptableObject
 		JS_World world_ = (JS_World)world;
 		location.setWorld(world_.world);
 	}
+	
+	public static Scriptable jsFunction_add(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 1)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location caller = (JS_Location)thisObj;
+		
+		if (args.length < 3)
+		{
+			if (!(args[0] instanceof JS_Location))
+			{
+				throw new IllegalArgumentException();
+			}
+			JS_Location other = (JS_Location)args[0];
+			
+			return ConvertUtility.toScriptable(caller.location.add(other.location), cx, thisObj);
+		}
+		
+		return ConvertUtility.toScriptable(caller.location.add(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])), cx, thisObj);
+	}
+	
+	public static Scriptable jsFunction_subtract(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 1)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location caller = (JS_Location)thisObj;
+		
+		if (args.length < 3)
+		{
+			if (!(args[0] instanceof JS_Location))
+			{
+				throw new IllegalArgumentException();
+			}
+			JS_Location other = (JS_Location)args[0];
+			
+			return ConvertUtility.toScriptable(caller.location.subtract(other.location), cx, thisObj);
+		}
+		
+		return ConvertUtility.toScriptable(caller.location.subtract(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])), cx, thisObj);
+	}
+	
+	public double jsGet_length()
+	{
+		return location.length();
+	}
+	
+	public double jsGet_lengthSquared()
+	{
+		return location.lengthSquared();
+	}
+	
+	public static double jsFunction_distance(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 1)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location caller = (JS_Location)thisObj;
+		
+		if (!(args[0] instanceof JS_Location))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location other = (JS_Location)args[0];
+		
+		return caller.location.distance(other.location);
+	}
+	
+	public static double jsFunction_distanceSquared(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 1)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location caller = (JS_Location)thisObj;
+		
+		if (!(args[0] instanceof JS_Location))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location other = (JS_Location)args[0];
+		
+		return caller.location.distanceSquared(other.location);
+	}
+	
+	public static Scriptable jsFunction_multiply(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 1)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location caller = (JS_Location)thisObj;
+		
+		return ConvertUtility.toScriptable(caller.location.multiply(Context.toNumber(args[0])), cx, thisObj);
+	}
+	
+	public Scriptable jsFunction_zero()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(location.zero(), cx, scope);
+	}
 }

@@ -193,10 +193,10 @@ public class JSBlockListener extends BlockListener
 			JS_Block blockPlaced = (JS_Block)ConvertUtility.toScriptable(event.getBlockPlaced(), cx, scope);
 			JS_Block blockAgainst = (JS_Block)ConvertUtility.toScriptable(event.getBlockAgainst(), cx, scope);
 			JS_ItemStack itemInHand = (JS_ItemStack)ConvertUtility.toScriptable(event.getItemInHand(), cx, scope);
-			// TODO: getBlockReplacedState
+			JS_BlockState replacedState = (JS_BlockState)ConvertUtility.toScriptable(event.getBlockReplacedState(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player, blockPlaced, blockAgainst, itemInHand } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player, blockPlaced, blockAgainst, itemInHand, replacedState } );
 			globalScope.delete("_event");
 		}
     }

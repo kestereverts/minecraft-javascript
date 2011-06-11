@@ -88,7 +88,13 @@ public class JS_BlockPlaceEvent extends ScriptableObject
 		return ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 	}
 	
-	// TODO: jsGet_blockReplacedState
+	public Scriptable jsGet_blockReplacedState()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(event.getBlockReplacedState(), cx, scope);		
+	}
 	
 	public boolean jsGet_cancelled()
 	{

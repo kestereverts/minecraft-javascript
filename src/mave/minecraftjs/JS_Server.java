@@ -199,4 +199,8 @@ public class JS_Server extends ScriptableObject
 		
 		return ConvertUtility.toScriptable(server.getPluginManager(), cx, scope);
 	}
+	
+	// TODO: createWorld
+	// TODO: unloadWorld
+	// TODO: more..
 }

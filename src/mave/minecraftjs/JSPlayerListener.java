@@ -488,4 +488,6 @@ public class JSPlayerListener extends PlayerListener
 			globalScope.delete("_event");
 		}
     }
+    
+    // TODO: onPlayerPortal
 }

@@ -39,7 +39,10 @@ public class JS_Ghast extends ScriptableObject
 		return "Ghast";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return ghast.getUniqueId();
+	}
 	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{

@@ -39,7 +39,10 @@ public class JS_LightningStrike extends ScriptableObject
 		return "LightningStrike";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return strike.getUniqueId();
+	}
 	
 	public boolean jsGet_effect()
 	{

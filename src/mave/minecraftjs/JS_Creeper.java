@@ -40,7 +40,10 @@ public class JS_Creeper extends ScriptableObject
 		return "Creeper";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return creeper.getUniqueId();
+	}
 	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{

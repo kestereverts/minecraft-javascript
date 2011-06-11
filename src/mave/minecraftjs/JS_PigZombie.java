@@ -40,7 +40,10 @@ public class JS_PigZombie extends ScriptableObject
 		return "PigZombie";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return pigZombie.getUniqueId();
+	}
 	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{

@@ -39,7 +39,10 @@ public class JS_Item extends ScriptableObject
 		return "Item";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return item.getUniqueId();
+	}
 	
 	public Scriptable jsGet_itemStack()
 	{

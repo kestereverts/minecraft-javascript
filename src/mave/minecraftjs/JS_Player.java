@@ -39,7 +39,10 @@ public class JS_Player extends ScriptableObject
 		return "Player";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return player.getUniqueId();
+	}
 	
 	public String jsGet_displayName()
 	{

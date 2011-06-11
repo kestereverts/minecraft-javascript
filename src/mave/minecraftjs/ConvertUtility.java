@@ -1275,6 +1275,36 @@ public class ConvertUtility
 		return entity;
 	}
 	
+	public static Scriptable toScriptable(EntityPortalEnterEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_EntityPortalEnterEvent entity = (JS_EntityPortalEnterEvent)cx.newObject(scope, "EntityPortalEnterEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(EntityTameEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_EntityTameEvent entity = (JS_EntityTameEvent)cx.newObject(scope, "EntityTameEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+	
 	/*public static Scriptable toScriptable(Event e, Context cx, Scriptable scope)
 	{
 		BukkitTest.m_bInternalConstruction = true;

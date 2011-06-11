@@ -107,6 +107,8 @@ public class Script
 			ScriptableObject.defineClass(m_globalScope, JS_PaintingBreakEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_PaintingPlaceEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_PigZapEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_EntityPortalEnterEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_EntityTameEvent.class);
 		}
 		catch (IllegalAccessException e)
 		{

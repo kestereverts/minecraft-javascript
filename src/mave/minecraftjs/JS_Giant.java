@@ -40,7 +40,10 @@ public class JS_Giant extends ScriptableObject
 		return "Giant";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return giant.getUniqueId();
+	}
 	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{

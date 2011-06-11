@@ -2,6 +2,7 @@ package mave.minecraftjs;
 
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.PigZombie;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.painting.PaintingBreakEvent;
@@ -342,6 +343,60 @@ public class JSEntityListener extends EntityListener
 		}
 	}
 	
-	// TODO: onEntityPortalEnter
-	// TODO: onEntityTame
+	@Override
+	public void onEntityPortalEnter(EntityPortalEnterEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_PORTAL_ENTER)
+		{
+    		m_eventRegistration.m_script.enterContext();
+        	Context cx = Context.getCurrentContext();
+        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+        	
+			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
+			
+			Scriptable entity = null;
+			try
+			{
+				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
+			}
+			catch (IllegalArgumentException ex)
+			{
+			}
+
+			JS_Location location = (JS_Location)ConvertUtility.toScriptable(event.getLocation(), cx, scope);
+
+			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, location } );
+			globalScope.delete("_event");
+		}
+	}
+	
+	@Override
+	public void onEntityTame(EntityTameEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_TAME)
+		{
+    		m_eventRegistration.m_script.enterContext();
+        	Context cx = Context.getCurrentContext();
+        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+        	
+			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
+			
+			Scriptable entity = null;
+			try
+			{
+				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
+			}
+			catch (IllegalArgumentException ex)
+			{
+			}
+
+			// NOTE: AnimalTamer.. Player?
+			JS_Player owner = (JS_Player)ConvertUtility.toScriptable((Player)event.getOwner(), cx, scope);
+
+			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, owner } );
+			globalScope.delete("_event");
+		}
+	}
 }

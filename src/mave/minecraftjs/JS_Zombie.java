@@ -40,7 +40,10 @@ public class JS_Zombie extends ScriptableObject
 		return "Zombie";
 	}
 	
-	// TODO: jsGet_uniqueId
+	public java.util.UUID jsGet_uniqueId()
+	{
+		return zombie.getUniqueId();
+	}
 	
 	public static void jsFunction_damage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{

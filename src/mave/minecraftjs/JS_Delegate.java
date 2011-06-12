@@ -38,7 +38,7 @@ public abstract class JS_Delegate<D> extends ScriptableObject
 	public void initializeFunctionProperties()
 	{
 		defineFunctionProperties(new String[] { "toString" },
-				this.getClass(), DONTENUM);
+				JS_Delegate.class, DONTENUM);
 	}
 	
 	

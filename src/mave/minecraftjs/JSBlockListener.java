@@ -9,80 +9,80 @@ public class JSBlockListener extends BlockListener
 {
 	private EventRegistration m_eventRegistration = null;
 	
-    public JSBlockListener(EventRegistration eventRegistration)
-    {
-    	m_eventRegistration = eventRegistration;
-    }
+	public JSBlockListener(EventRegistration eventRegistration)
+	{
+		m_eventRegistration = eventRegistration;
+	}
 
-    @Override
-    public void onBlockPhysics(BlockPhysicsEvent event)
-    {
+	@Override
+	public void onBlockPhysics(BlockPhysicsEvent event)
+	{
 		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_PHYSICS)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
-	    	JS_Material material = (JS_Material)ConvertUtility.toScriptable(event.getChangedType(), cx, scope);
+			JS_Material material = (JS_Material)ConvertUtility.toScriptable(event.getChangedType(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-	    	m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, material } );
-	    	globalScope.delete("_event");
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, material } );
+			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockCanBuild(BlockCanBuildEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_CANBUILD)
+	}
+	
+	@Override
+	public void onBlockCanBuild(BlockCanBuildEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_CANBUILD)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
-	    	JS_Material material = (JS_Material)ConvertUtility.toScriptable(event.getMaterial(), cx, scope);
+			JS_Material material = (JS_Material)ConvertUtility.toScriptable(event.getMaterial(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-	    	m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, material, event.isBuildable() } );
-	    	globalScope.delete("_event");
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, material, event.isBuildable() } );
+			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockBreak(BlockBreakEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_BREAK)
+	}
+	
+	@Override
+	public void onBlockBreak(BlockBreakEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_BREAK)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
-	    	JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
+			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-	    	m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player } );
-	    	globalScope.delete("_event");
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player } );
+			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockBurn(BlockBurnEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_BURN)
+	}
+	
+	@Override
+	public void onBlockBurn(BlockBurnEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_BURN)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -91,17 +91,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockDamage(BlockDamageEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_DAMAGE)
+	}
+	
+	@Override
+	public void onBlockDamage(BlockDamageEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_DAMAGE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -112,17 +112,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player, itemInHand, event.getInstaBreak() } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockDispense(BlockDispenseEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_DISPENSE)
+	}
+	
+	@Override
+	public void onBlockDispense(BlockDispenseEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_DISPENSE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -133,17 +133,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, item, velocity } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockFromTo(BlockFromToEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_FROMTO)
+	}
+	
+	@Override
+	public void onBlockFromTo(BlockFromToEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_FROMTO)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -154,17 +154,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, toBlock, face } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockIgnite(BlockIgniteEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_IGNITE)
+	}
+	
+	@Override
+	public void onBlockIgnite(BlockIgniteEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_IGNITE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -175,17 +175,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player, cause } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockPlace(BlockPlaceEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.BLOCK_PLACE)
+	}
+	
+	@Override
+	public void onBlockPlace(BlockPlaceEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.BLOCK_PLACE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -199,17 +199,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player, blockPlaced, blockAgainst, itemInHand, replacedState } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onLeavesDecay(LeavesDecayEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.LEAVES_DECAY)
+	}
+	
+	@Override
+	public void onLeavesDecay(LeavesDecayEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.LEAVES_DECAY)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -218,17 +218,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onSnowForm(SnowFormEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.SNOW_FORM)
+	}
+	
+	@Override
+	public void onSnowForm(SnowFormEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.SNOW_FORM)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -238,17 +238,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, material } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onSignChange(SignChangeEvent event)
-    {
-    	if (m_eventRegistration.m_eventType == Event.Type.SIGN_CHANGE)
+	}
+	
+	@Override
+	public void onSignChange(SignChangeEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.SIGN_CHANGE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -260,17 +260,17 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, player, lines } );
 			globalScope.delete("_event");
 		}
-    }
-    
-    @Override
-    public void onBlockRedstoneChange(BlockRedstoneEvent event)
-    {    	
-    	if (m_eventRegistration.m_eventType == Event.Type.REDSTONE_CHANGE)
+	}
+	
+	@Override
+	public void onBlockRedstoneChange(BlockRedstoneEvent event)
+	{		
+		if (m_eventRegistration.m_eventType == Event.Type.REDSTONE_CHANGE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
@@ -279,5 +279,5 @@ public class JSBlockListener extends BlockListener
 			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { block, event.getOldCurrent(), event.getNewCurrent() } );
 			globalScope.delete("_event");
 		}
-    }
+	}
 }

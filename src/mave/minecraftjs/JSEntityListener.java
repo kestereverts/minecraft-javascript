@@ -24,10 +24,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.CREATURE_SPAWN)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -53,10 +53,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.CREEPER_POWER)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -82,10 +82,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_COMBUST)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -108,10 +108,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_DAMAGE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -136,10 +136,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_DEATH)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -164,10 +164,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_EXPLODE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -193,10 +193,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_INTERACT)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -221,10 +221,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_TARGET)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -251,10 +251,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.EXPLOSION_PRIME)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -277,10 +277,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.PAINTING_BREAK)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			// TODO: getPainting
@@ -297,10 +297,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.PAINTING_PLACE)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			// TODO: getPainting
@@ -319,10 +319,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.PIG_ZAP)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -348,10 +348,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_PORTAL_ENTER)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;
@@ -376,10 +376,10 @@ public class JSEntityListener extends EntityListener
 	{
 		if (m_eventRegistration.m_eventType == Event.Type.ENTITY_TAME)
 		{
-    		m_eventRegistration.m_script.enterContext();
-        	Context cx = Context.getCurrentContext();
-        	Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
-        	
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
 			Scriptable entity = null;

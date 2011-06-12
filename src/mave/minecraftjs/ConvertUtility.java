@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingPlaceEvent;
@@ -548,6 +549,21 @@ public class ConvertUtility
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
 		entity.blockState = b;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(ConsoleCommandSender s, Context cx, Scriptable scope)
+	{
+		if (s == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_ConsoleCommandSender entity = (JS_ConsoleCommandSender)cx.newObject(scope, "ConsoleCommandSender");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.sender = s;
 		return entity;
 	}
 	

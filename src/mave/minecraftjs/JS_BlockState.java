@@ -2,7 +2,6 @@ package mave.minecraftjs;
 
 import java.lang.Error;
 
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.mozilla.javascript.*;
 

@@ -1,13 +1,12 @@
 package mave.minecraftjs;
 
 import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 
 import org.bukkit.command.*;
-import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MinecraftJS extends JavaPlugin
@@ -26,25 +25,31 @@ public class MinecraftJS extends JavaPlugin
 	
 	public void onEnable()
 	{
-		try
+		File pluginsDir = new File("plugins/");
+		for (String s : pluginsDir.list())
 		{
-			Script s = new Script();
-			s.load(new File("test.js"));
-			m_lstScripts.add(s);
-			
-			Script s2 = new Script();
-			s2.load(new File("test2.js"));
-			m_lstScripts.add(s2);
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (s.endsWith(".js"))
+			{
+				try
+				{
+					Script script = new Script();
+					script.load(new File("plugins/", s));
+					m_lstScripts.add(script);
+					
+				}
+				catch (FileNotFoundException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InvalidDescriptionException e)
+				{
+					System.err.println(e.getMessage());
+				}
+			}
 		}
 	}
 	
@@ -55,5 +60,15 @@ public class MinecraftJS extends JavaPlugin
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		return false;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void addCommand(Command command) throws ClassNotFoundException, SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InstantiationException, InvocationTargetException
+	{
+		Class c = Class.forName("org.bukkit.craftbukkit.CraftServer");
+		Field f = c.getDeclaredField("commandMap");
+		f.setAccessible(true);
+		CommandMap cmdMap = (CommandMap)f.get((Object)getServer());
+		cmdMap.register(command.getName(), command);
 	}
 }

@@ -14,21 +14,37 @@ public class JSGlobal extends ScriptableObject
 	
 	public void initializeFunctionProperties()
 	{
-        defineFunctionProperties(new String[] { "getServer" },
-        		JSGlobal.class, ScriptableObject.DONTENUM);
+		defineFunctionProperties(new String[] { "getServer", "registerCommand" },
+				JSGlobal.class, ScriptableObject.DONTENUM);
 	}
 	
 	public static Scriptable getServer(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{		
 		if (globalServer == null)
 		{
-	        globalServer = (JS_Server)ConvertUtility.toScriptable(MinecraftJS.m_singleton.getServer(), cx, thisObj);
+			globalServer = (JS_Server)ConvertUtility.toScriptable(MinecraftJS.m_singleton.getServer(), cx, thisObj);
 		}
 		else
 		{
 			globalServer.server = MinecraftJS.m_singleton.getServer();
 		}
-        return globalServer;
+		return globalServer;
+	}
+	
+	public static void registerCommand(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 2 || !(args[1] instanceof Function))
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		String sCommand = Context.toString(args[0]);
+		
+		JSCommandHandler h = new JSCommandHandler();
+		h.m_sCommand = sCommand;
+		h.m_scriptFunction = (Function)args[1];
+		
+		MinecraftJS.m_currentScript.m_lstCommandHandlers.add(h);
 	}
 
 	@Override

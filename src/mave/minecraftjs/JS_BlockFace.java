@@ -18,7 +18,7 @@ public class JS_BlockFace extends ScriptableObject
 				JS_BlockFace.class, DONTENUM);
 	}
 	
-	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
+	public static void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{

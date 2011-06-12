@@ -4,7 +4,6 @@ import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Painting;
-import org.bukkit.entity.LivingEntity;
 import org.mozilla.javascript.*;
 
 public class JS_Painting extends ScriptableObject
@@ -22,11 +21,11 @@ public class JS_Painting extends ScriptableObject
 				JS_Painting.class, DONTENUM);
 	}
 	
-	public void jsConstructor() throws Error
+	public void jsConstructor()
 	{
 		if (!MinecraftJS.m_bInternalConstruction)
 		{
-			throw new Error("i am not to be constructed");
+			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
 	}
 	

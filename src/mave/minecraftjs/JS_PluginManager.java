@@ -1,7 +1,5 @@
 package mave.minecraftjs;
 
-import java.lang.Error;
-
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginManager;
@@ -22,11 +20,11 @@ public class JS_PluginManager extends ScriptableObject
 				JS_PluginManager.class, DONTENUM);
 	}
 	
-	public void jsConstructor() throws Error
+	public void jsConstructor()
 	{
 		if (!MinecraftJS.m_bInternalConstruction)
 		{
-			throw new Error("i am not to be constructed");
+			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
 	}
 	
@@ -102,6 +100,10 @@ public class JS_PluginManager extends ScriptableObject
 		else if (category.equals("entity"))
 		{
 			reg.m_listener = new JSEntityListener(reg);
+		}
+		else if (category.equals("world"))
+		{
+			reg.m_listener = new JSWorldListener(reg);
 		}
 		else
 		{

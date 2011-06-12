@@ -1,5 +1,7 @@
 package mave.minecraftjs;
 
+import java.lang.reflect.*;
+
 import org.mozilla.javascript.*;
 
 public class JSGlobal extends ScriptableObject
@@ -14,7 +16,7 @@ public class JSGlobal extends ScriptableObject
 	
 	public void initializeFunctionProperties()
 	{
-		defineFunctionProperties(new String[] { "getServer", "registerCommand" },
+		defineFunctionProperties(new String[] { "getServer", "registerCommand", "objcast" },
 				JSGlobal.class, ScriptableObject.DONTENUM);
 	}
 	
@@ -45,6 +47,28 @@ public class JSGlobal extends ScriptableObject
 		h.m_scriptFunction = (Function)args[1];
 		
 		MinecraftJS.m_currentScript.m_lstCommandHandlers.add(h);
+	}
+	
+	public static Scriptable objcast(Context cx, Scriptable thisObj, Object[] args, Function funObj) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+	{
+		if (args.length < 2 || !(args[0] instanceof Scriptable))
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		Scriptable obj = (Scriptable)args[0];
+		String sTarget = Context.toString(args[1]);
+		Field[] fields = obj.getClass().getFields();
+		Object originalObject = fields[0].get(obj);
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		Scriptable newObj = cx.newObject(thisObj, sTarget);
+		MinecraftJS.m_bInternalConstruction = false;
+		
+		Field[] fields2 = newObj.getClass().getFields();
+		fields2[0].set(newObj, fields2[0].getType().cast(originalObject));
+		
+		return newObj;
 	}
 
 	@Override

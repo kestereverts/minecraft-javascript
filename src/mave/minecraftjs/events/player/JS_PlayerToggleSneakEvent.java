@@ -23,11 +23,11 @@ public class JS_PlayerToggleSneakEvent extends ScriptableObject
 				JS_PlayerToggleSneakEvent.class, DONTENUM);
 	}
 	
-	public void jsConstructor() throws Error
+	public void jsConstructor()
 	{
 		if (!MinecraftJS.m_bInternalConstruction)
 		{
-			throw new Error("i am not to be constructed");
+			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
 	}
 	

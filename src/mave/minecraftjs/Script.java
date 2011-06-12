@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import mave.minecraftjs.events.block.*;
 import mave.minecraftjs.events.entity.*;
 import mave.minecraftjs.events.player.*;
+import mave.minecraftjs.events.world.*;
 
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -170,6 +171,7 @@ public class Script
 			ScriptableObject.defineClass(m_globalScope, JS_Chunk.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Vector.class);
 			ScriptableObject.defineClass(m_globalScope, JS_ConsoleCommandSender.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Plugin.class);
 			
 			ScriptableObject.defineClass(m_globalScope, JS_PlayerAnimationEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_PlayerBedEnterEvent.class);
@@ -221,6 +223,15 @@ public class Script
 			ScriptableObject.defineClass(m_globalScope, JS_PigZapEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_EntityPortalEnterEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_EntityTameEvent.class);
+			
+			ScriptableObject.defineClass(m_globalScope, JS_ChunkLoadEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_ChunkUnloadEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_PortalCreateEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_SpawnChangeEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_WorldInitEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_WorldLoadEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_WorldSaveEvent.class);
+			ScriptableObject.defineClass(m_globalScope, JS_WorldUnloadEvent.class);
 		}
 		catch (IllegalAccessException e)
 		{

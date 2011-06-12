@@ -23,11 +23,11 @@ public class JS_ExplosionPrimeEvent extends ScriptableObject
 				JS_ExplosionPrimeEvent.class, DONTENUM);
 	}
 	
-	public void jsConstructor() throws Error
+	public void jsConstructor()
 	{
 		if (!MinecraftJS.m_bInternalConstruction)
 		{
-			throw new Error("i am not to be constructed");
+			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
 	}
 	

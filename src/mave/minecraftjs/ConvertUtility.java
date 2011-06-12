@@ -3,24 +3,22 @@ package mave.minecraftjs;
 import mave.minecraftjs.events.block.*;
 import mave.minecraftjs.events.entity.*;
 import mave.minecraftjs.events.player.*;
+import mave.minecraftjs.events.world.*;
+import mave.minecraftjs.events.server.*;
 
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.TreeType;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.*;
-import org.bukkit.event.painting.PaintingBreakEvent;
-import org.bukkit.event.painting.PaintingPlaceEvent;
+import org.bukkit.event.painting.*;
 import org.bukkit.event.player.*;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.world.*;
+import org.bukkit.event.server.*;
+
+import org.bukkit.*;
+import org.bukkit.block.*;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.util.Vector;
 import org.mozilla.javascript.Context;
@@ -573,6 +571,21 @@ public class ConvertUtility
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
 		entity.blockState = b;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(Plugin p, Context cx, Scriptable scope)
+	{
+		if (p == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_Plugin entity = (JS_Plugin)cx.newObject(scope, "Plugin");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.plugin = p;
 		return entity;
 	}
 	
@@ -1345,13 +1358,170 @@ public class ConvertUtility
 		return entity;
 	}
 	
-	/*public static Scriptable toScriptable(Event e, Context cx, Scriptable scope)
+	// world events
+	public static Scriptable toScriptable(ChunkLoadEvent e, Context cx, Scriptable scope)
 	{
-		BukkitTest.m_bInternalConstruction = true;
-		JS_ entity = (JS_)cx.newObject(scope, "Event");
-		BukkitTest.m_bInternalConstruction = false;
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_ChunkLoadEvent entity = (JS_ChunkLoadEvent)cx.newObject(scope, "ChunkLoadEvent");
+		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
 		entity.event = e;
 		return entity;
-	}*/
+	}
+
+	public static Scriptable toScriptable(ChunkUnloadEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_ChunkUnloadEvent entity = (JS_ChunkUnloadEvent)cx.newObject(scope, "ChunkUnloadEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(PortalCreateEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_PortalCreateEvent entity = (JS_PortalCreateEvent)cx.newObject(scope, "PortalCreateEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(SpawnChangeEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_SpawnChangeEvent entity = (JS_SpawnChangeEvent)cx.newObject(scope, "SpawnChangeEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(WorldInitEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_WorldInitEvent entity = (JS_WorldInitEvent)cx.newObject(scope, "WorldInitEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(WorldLoadEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_WorldLoadEvent entity = (JS_WorldLoadEvent)cx.newObject(scope, "WorldLoadEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(WorldSaveEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_WorldSaveEvent entity = (JS_WorldSaveEvent)cx.newObject(scope, "WorldSaveEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(WorldUnloadEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_WorldUnloadEvent entity = (JS_WorldUnloadEvent)cx.newObject(scope, "WorldUnloadEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+	
+	// server events
+	public static Scriptable toScriptable(PluginDisableEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_PluginDisableEvent entity = (JS_PluginDisableEvent)cx.newObject(scope, "PluginDisableEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(PluginEnableEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_PluginEnableEvent entity = (JS_PluginEnableEvent)cx.newObject(scope, "PluginEnableEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+
+	public static Scriptable toScriptable(ServerCommandEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_ServerCommandEvent entity = (JS_ServerCommandEvent)cx.newObject(scope, "ServerCommandEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
 }

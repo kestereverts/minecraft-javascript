@@ -1,6 +1,5 @@
 package mave.minecraftjs;
 
-import java.lang.Error;
 import java.util.List;
 
 import org.bukkit.Server;
@@ -24,11 +23,11 @@ public class JS_Server extends ScriptableObject
 				JS_Server.class, DONTENUM);
 	}
 	
-	public void jsConstructor() throws Error
+	public void jsConstructor()
 	{
 		if (!MinecraftJS.m_bInternalConstruction)
 		{
-			throw new Error("i am not to be constructed");
+			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
 	}
 	

@@ -11,23 +11,25 @@ public class JS_Vector extends JS_Delegate<Vector>
 	{
 	}
 	
-	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
+	public static Scriptable jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{
-			return;
+			return new JS_Vector();
 		}
 		
-		JS_Vector caller = (JS_Vector)ctorObj;
+		JS_Vector vector = new JS_Vector();
 		
 		if (args.length < 3)
 		{
-			caller.setDelegate(new Vector());
+			vector.setDelegate(new Vector());
 		}
 		else
 		{
-			caller.setDelegate(new Vector(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])));
+			vector.setDelegate(new Vector(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])));
 		}
+		
+		return vector;
 	}
 	
 	@Override

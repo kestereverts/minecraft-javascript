@@ -11,20 +11,21 @@ public class JS_BlockFace extends JS_Delegate<BlockFace>
 	{
 	}
 	
-	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
+	public static Scriptable jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{
-			return;
+			return new JS_BlockFace();
 		}
-		JS_BlockFace caller = (JS_BlockFace)ctorObj;
 		
 		if (args.length < 1)
 		{
 			throw new IllegalArgumentException();
 		}
-		
-		caller.setDelegate(ConvertUtility.stringToBlockFace(Context.toString(args[0])));
+
+		JS_BlockFace blockFace = new JS_BlockFace();
+		blockFace.setDelegate(ConvertUtility.stringToBlockFace(Context.toString(args[0])));
+		return blockFace;
 	}
 	
 	@Override

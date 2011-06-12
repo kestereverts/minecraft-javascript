@@ -24,7 +24,7 @@ public class JS_Creeper extends JS_Creature<Creeper>
 	{
 		return "Creeper";
 	}
-	
+
 	public void jsSet_powered(boolean bPowered)
 	{
 		getDelegate().setPowered(bPowered);

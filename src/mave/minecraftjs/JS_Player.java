@@ -7,6 +7,8 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
+
+
 public class JS_Player extends JS_LivingEntity<Player>
 {
 	private static final long serialVersionUID = -657071278805801306L;

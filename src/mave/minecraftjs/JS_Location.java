@@ -10,14 +10,13 @@ public class JS_Location extends JS_Delegate<Location>
 	public JS_Location()
 	{
 	}
-
-	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
+	
+	public static Scriptable jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{
-			return;
+			return new JS_Location();
 		}
-		JS_Location caller = (JS_Location)ctorObj;
 		
 		if (args.length < 4)
 		{
@@ -28,16 +27,20 @@ public class JS_Location extends JS_Delegate<Location>
 		{
 			throw new IllegalArgumentException();
 		}
+		
+		JS_Location location = new JS_Location();
 		JS_World world = (JS_World)args[0];
 		
 		if (args.length < 6)
 		{
-			caller.setDelegate(new Location(world.getDelegate(), Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3])));
+			location.setDelegate(new Location(world.getDelegate(), Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3])));
 		}
 		else
 		{
-			caller.setDelegate(new Location(world.getDelegate(), Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3]), (float)Context.toNumber(args[4]), (float)Context.toNumber(args[5])));
+			location.setDelegate(new Location(world.getDelegate(), Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3]), (float)Context.toNumber(args[4]), (float)Context.toNumber(args[5])));
 		}
+		
+		return location;
 	}
 	
 	@Override

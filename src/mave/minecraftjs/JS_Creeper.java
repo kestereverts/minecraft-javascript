@@ -1,12 +1,7 @@
 package mave.minecraftjs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
 
-import org.bukkit.block.Block;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -184,73 +179,8 @@ public class JS_Creeper extends ScriptableObject
 		creeper.setLastDamage(iLastDamage);
 	}
 	
-	public static Scriptable jsFunction_getLastTwoTargetBlocks(Context cx, Scriptable thisObj, Object[] args, Function funObj)
-	{
-		if (args.length < 2)
-		{
-			throw new IllegalArgumentException();
-		}
-		JS_Creeper caller = (JS_Creeper)thisObj;
-		
-		if (!(args[0] == null || args[0] instanceof NativeArray))
-		{
-			throw new IllegalArgumentException();
-		}
-		
-		HashSet<Byte> hashSet = null;
-		if (args[0] != null)
-		{
-			hashSet = new HashSet<Byte>();
-			
-			NativeArray arr = (NativeArray)args[0];
-			for (Object o : arr.getIds())
-			{
-			    hashSet.add(new Byte((byte)Context.toNumber(arr.get((Integer)o, null))));
-			}
-		}
-		
-		List<Block> lstBlocks = caller.creeper.getLastTwoTargetBlocks(hashSet, (int)Context.toNumber(args[1]));
-		List<Scriptable> lstObjects = new ArrayList<Scriptable>();
-		for (Block b : lstBlocks)
-		{
-			lstObjects.add(ConvertUtility.toScriptable(b, cx, thisObj));
-		}
-		return cx.newArray(thisObj, lstObjects.toArray());
-	}
-	
-	public static Scriptable jsFunction_getLineOfSight(Context cx, Scriptable thisObj, Object[] args, Function funObj)
-	{
-		if (args.length < 2)
-		{
-			throw new IllegalArgumentException();
-		}
-		JS_Creeper caller = (JS_Creeper)thisObj;
-		
-		if (!(args[0] == null || args[0] instanceof NativeArray))
-		{
-			throw new IllegalArgumentException();
-		}
-		
-		HashSet<Byte> hashSet = null;
-		if (args[0] != null)
-		{
-			hashSet = new HashSet<Byte>();
-			
-			NativeArray arr = (NativeArray)args[0];
-			for (Object o : arr.getIds())
-			{
-			    hashSet.add(new Byte((byte)Context.toNumber(arr.get((Integer)o, null))));
-			}
-		}
-		
-		List<Block> lstBlocks = caller.creeper.getLineOfSight(hashSet, (int)Context.toNumber(args[1]));
-		List<Scriptable> lstObjects = new ArrayList<Scriptable>();
-		for (Block b : lstBlocks)
-		{
-			lstObjects.add(ConvertUtility.toScriptable(b, cx, thisObj));
-		}
-		return cx.newArray(thisObj, lstObjects.toArray());
-	}
+	// TODO: getLastTwoTargetBlocks
+	// TODO: getLineOfSight
 	
 	public int jsGet_noDamageTicks()
 	{

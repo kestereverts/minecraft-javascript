@@ -1,5 +1,8 @@
 package mave.minecraftjs;
 
+import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
+
+import org.bukkit.Effect;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.*;
@@ -158,7 +161,24 @@ public class JS_Player extends ScriptableObject
 		caller.player.playNote(location.location, (byte)Context.toNumber(args[1]), (byte)Context.toNumber(args[2]));
 	}
 	
-	// TODO: playEffect
+	public static void jsFunction_playEffect(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 3)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Player caller = (JS_Player)thisObj;
+		
+		if (!(args[0] instanceof JS_Location))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location location = (JS_Location)args[0];
+		
+		Effect effect = Effect.valueOf(Context.toString(args[0]).toUpperCase());
+		caller.player.playEffect(location.location, effect, (int)Context.toNumber(args[2]));
+	}
+	
 	// TODO: sendChunkChange
 	
 	public boolean jsGet_sneaking()
@@ -312,14 +332,30 @@ public class JS_Player extends ScriptableObject
 		return player.getLastDamage();
 	}
 	
-	// TODO: jsGet_lastDamageCause
+	public Scriptable jsGet_lastDamageCause()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(player.getLastDamageCause(), cx, scope);		
+	}
+	
+	public void jsSet_lastDamageCause(Scriptable cause)
+	{
+		if (!(cause instanceof JS_EntityDamageEvent))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_EntityDamageEvent event = (JS_EntityDamageEvent)cause;
+		
+		player.setLastDamageCause(event.event);
+	}
 	
 	public void jsSet_lastDamage(int iLastDamage)
 	{
 		player.setLastDamage(iLastDamage);
 	}
 	
-	// TODO: jsSet_lastDamageCause
 	// TODO: getLastTwoTargetBlocks
 	// TODO: getLineOfSight
 	

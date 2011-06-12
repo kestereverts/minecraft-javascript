@@ -283,11 +283,11 @@ public class JSEntityListener extends EntityListener
 			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
 			
-			// TODO: getPainting
+			JS_Painting painting = (JS_Painting)ConvertUtility.toScriptable(event.getPainting(), cx, scope);
 			String cause = event.getCause().toString().toLowerCase();
 
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { cause } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { painting, cause } );
 			globalScope.delete("_event");
 		}
 	}
@@ -302,14 +302,14 @@ public class JSEntityListener extends EntityListener
 			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
 			
 			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
-			
-			// TODO: getPainting
+
+			JS_Painting painting = (JS_Painting)ConvertUtility.toScriptable(event.getPainting(), cx, scope);
 			JS_Player player = (JS_Player)ConvertUtility.toScriptable(event.getPlayer(), cx, scope);
 			JS_Block block = (JS_Block)ConvertUtility.toScriptable(event.getBlock(), cx, scope);
 			JS_BlockFace face = (JS_BlockFace)ConvertUtility.toScriptable(event.getBlockFace(), cx, scope);
 			
 			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
-			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { player, block, face } );
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { painting, player, block, face } );
 			globalScope.delete("_event");
 		}
 	}

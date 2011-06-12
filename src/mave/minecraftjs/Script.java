@@ -156,6 +156,7 @@ public class Script
 			ScriptableObject.defineClass(m_globalScope, JS_Zombie.class);
 			ScriptableObject.defineClass(m_globalScope, JS_Item.class);
 			ScriptableObject.defineClass(m_globalScope, JS_LightningStrike.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Painting.class);
 			
 			ScriptableObject.defineClass(m_globalScope, JS_Server.class);
 			ScriptableObject.defineClass(m_globalScope, JS_World.class);

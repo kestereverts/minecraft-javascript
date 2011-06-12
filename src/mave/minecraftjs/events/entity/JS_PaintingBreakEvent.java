@@ -1,8 +1,11 @@
 package mave.minecraftjs.events.entity;
 
+import mave.minecraftjs.ConvertUtility;
 import mave.minecraftjs.MinecraftJS;
 
 import org.bukkit.event.painting.*;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 public class JS_PaintingBreakEvent extends ScriptableObject
@@ -45,7 +48,13 @@ public class JS_PaintingBreakEvent extends ScriptableObject
 		return event.getCause().toString().toLowerCase();
 	}
 	
-	// TODO: jsGet_painting
+	public Scriptable jsGet_painting()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(event.getPainting(), cx, scope);
+	}
 	
 	public boolean jsGet_cancelled()
 	{

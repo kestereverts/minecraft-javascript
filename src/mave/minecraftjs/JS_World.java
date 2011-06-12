@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Chunk;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.TreeType;
 import org.bukkit.World;
@@ -585,5 +586,29 @@ public class JS_World extends ScriptableObject
 	
 	// TODO: jsGet_generator
 	// TODO: jsGet_populators
-	// TODO: playEffect
+	
+	public static void jsFunction_playEffect(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 3)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_World caller = (JS_World)thisObj;
+		
+		if (!(args[0] instanceof JS_Location))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location location = (JS_Location)args[0];
+		
+		Effect effect = Effect.valueOf(Context.toString(args[0]).toUpperCase());
+		
+		if (args.length < 4)
+		{
+			caller.world.playEffect(location.location, effect, (int)Context.toNumber(args[2]));
+			return;
+		}
+		
+		caller.world.playEffect(location.location, effect, (int)Context.toNumber(args[2]), (int)Context.toNumber(args[3]));
+	}
 }

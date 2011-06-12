@@ -1,5 +1,7 @@
 package mave.minecraftjs;
 
+import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
+
 import org.bukkit.entity.Zombie;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -148,14 +150,30 @@ public class JS_Zombie extends ScriptableObject
 		return zombie.getLastDamage();
 	}
 	
-	// TODO: jsGet_lastDamageCause
+	public Scriptable jsGet_lastDamageCause()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(zombie.getLastDamageCause(), cx, scope);		
+	}
+	
+	public void jsSet_lastDamageCause(Scriptable cause)
+	{
+		if (!(cause instanceof JS_EntityDamageEvent))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_EntityDamageEvent event = (JS_EntityDamageEvent)cause;
+		
+		zombie.setLastDamageCause(event.event);
+	}
 	
 	public void jsSet_lastDamage(int iLastDamage)
 	{
 		zombie.setLastDamage(iLastDamage);
 	}
 	
-	// TODO: jsSet_lastDamageCause
 	// TODO: getLastTwoTargetBlocks
 	// TODO: getLineOfSight
 	

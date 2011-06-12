@@ -201,6 +201,23 @@ public class JS_Server extends ScriptableObject
 	}
 	
 	// TODO: createWorld
-	// TODO: unloadWorld
+
+	public static boolean jsFuncton_unloadWorld(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 2)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Server caller = (JS_Server)thisObj;
+		
+		if (args[0] instanceof JS_World)
+		{
+			JS_World world = (JS_World)args[0];
+			return caller.server.unloadWorld(world.world, Context.toBoolean(args[1]));
+		}
+		
+		return caller.server.unloadWorld(Context.toString(args[0]), Context.toBoolean(args[1]));
+	}
+	
 	// TODO: more..
 }

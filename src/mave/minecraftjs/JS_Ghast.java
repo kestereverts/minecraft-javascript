@@ -1,5 +1,7 @@
 package mave.minecraftjs;
 
+import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
+
 import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Entity;
 import org.mozilla.javascript.*;
@@ -147,14 +149,30 @@ public class JS_Ghast extends ScriptableObject
 		return ghast.getLastDamage();
 	}
 	
-	// TODO: jsGet_lastDamageCause
+	public Scriptable jsGet_lastDamageCause()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(ghast.getLastDamageCause(), cx, scope);		
+	}
+	
+	public void jsSet_lastDamageCause(Scriptable cause)
+	{
+		if (!(cause instanceof JS_EntityDamageEvent))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_EntityDamageEvent event = (JS_EntityDamageEvent)cause;
+		
+		ghast.setLastDamageCause(event.event);
+	}
 	
 	public void jsSet_lastDamage(int iLastDamage)
 	{
 		ghast.setLastDamage(iLastDamage);
 	}
 	
-	// TODO: jsSet_lastDamageCause
 	// TODO: getLastTwoTargetBlocks
 	// TODO: getLineOfSight
 	

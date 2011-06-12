@@ -59,7 +59,13 @@ public class JS_PaintingPlaceEvent extends ScriptableObject
 		return ConvertUtility.toScriptable(event.getBlockFace(), cx, scope);
 	}
 	
-	// TODO: jsGet_painting
+	public Scriptable jsGet_painting()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(event.getPainting(), cx, scope);
+	}
 	
 	public Scriptable jsGet_player()
 	{

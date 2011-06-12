@@ -163,6 +163,11 @@ public class ConvertUtility
 			JS_LightningStrike entity = (JS_LightningStrike)s;
 			return entity.strike;
 		}
+		else if (s instanceof JS_Painting)
+		{
+			JS_Painting entity = (JS_Painting)s;
+			return entity.painting;
+		}
 
 		throw new IllegalArgumentException();
 	}
@@ -217,6 +222,10 @@ public class ConvertUtility
 		else if (e instanceof LightningStrike)
 		{
 			return toScriptable((LightningStrike)e, cx, scope);
+		}
+		else if (e instanceof Painting)
+		{
+			return toScriptable((Painting)e, cx, scope);
 		}
 		
 		throw new IllegalArgumentException();
@@ -384,6 +393,21 @@ public class ConvertUtility
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
 		entity.strike = s;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(Painting p, Context cx, Scriptable scope)
+	{
+		if (p == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_Painting entity = (JS_Painting)cx.newObject(scope, "Painting");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.painting = p;
 		return entity;
 	}
 	

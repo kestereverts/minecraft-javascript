@@ -1,8 +1,13 @@
 package mave.minecraftjs;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
 
 import org.bukkit.Effect;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.*;
@@ -356,8 +361,73 @@ public class JS_Player extends ScriptableObject
 		player.setLastDamage(iLastDamage);
 	}
 	
-	// TODO: getLastTwoTargetBlocks
-	// TODO: getLineOfSight
+	public static Scriptable jsFunction_getLastTwoTargetBlocks(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 2)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Player caller = (JS_Player)thisObj;
+		
+		if (!(args[0] == null || args[0] instanceof NativeArray))
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		HashSet<Byte> hashSet = null;
+		if (args[0] != null)
+		{
+			hashSet = new HashSet<Byte>();
+			
+			NativeArray arr = (NativeArray)args[0];
+			for (Object o : arr.getIds())
+			{
+			    hashSet.add(new Byte((byte)Context.toNumber(arr.get((Integer)o, null))));
+			}
+		}
+		
+		List<Block> lstBlocks = caller.player.getLastTwoTargetBlocks(hashSet, (int)Context.toNumber(args[1]));
+		List<Scriptable> lstObjects = new ArrayList<Scriptable>();
+		for (Block b : lstBlocks)
+		{
+			lstObjects.add(ConvertUtility.toScriptable(b, cx, thisObj));
+		}
+		return cx.newArray(thisObj, lstObjects.toArray());
+	}
+	
+	public static Scriptable jsFunction_getLineOfSight(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 2)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Player caller = (JS_Player)thisObj;
+		
+		if (!(args[0] == null || args[0] instanceof NativeArray))
+		{
+			throw new IllegalArgumentException("its " + args[0].getClass().getName());
+		}
+		
+		HashSet<Byte> hashSet = null;
+		if (args[0] != null)
+		{
+			hashSet = new HashSet<Byte>();
+			
+			NativeArray arr = (NativeArray)args[0];
+			for (Object o : arr.getIds())
+			{
+			    hashSet.add(new Byte((byte)Context.toNumber(arr.get((Integer)o, null))));
+			}
+		}
+		
+		List<Block> lstBlocks = caller.player.getLineOfSight(hashSet, (int)Context.toNumber(args[1]));
+		List<Scriptable> lstObjects = new ArrayList<Scriptable>();
+		for (Block b : lstBlocks)
+		{
+			lstObjects.add(ConvertUtility.toScriptable(b, cx, thisObj));
+		}
+		return cx.newArray(thisObj, lstObjects.toArray());
+	}
 	
 	public int jsGet_noDamageTicks()
 	{

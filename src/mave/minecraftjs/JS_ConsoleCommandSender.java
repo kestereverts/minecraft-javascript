@@ -3,19 +3,13 @@ package mave.minecraftjs;
 import org.bukkit.command.ConsoleCommandSender;
 import org.mozilla.javascript.*;
 
-public class JS_ConsoleCommandSender extends ScriptableObject
+public class JS_ConsoleCommandSender extends JS_Delegate<ConsoleCommandSender>
 {
 	private static final long serialVersionUID = -2546432603116252436L;
-	public ConsoleCommandSender sender = null;
+
 
 	public JS_ConsoleCommandSender()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_ConsoleCommandSender.class, DONTENUM);
 	}
 	
 	public void jsConstructor()
@@ -24,12 +18,6 @@ public class JS_ConsoleCommandSender extends ScriptableObject
 		{
 			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
-	}
-	
-	@Override
-	public String toString()
-	{
-		return sender.toString();
 	}
 	
 	@Override
@@ -43,17 +31,17 @@ public class JS_ConsoleCommandSender extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(sender.getServer(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().getServer(), cx, scope);
 	}
 	
 	public boolean jsGet_op()
 	{
-		return sender.isOp();
+		return getDelegate().isOp();
 	}
 	
 	public boolean jsGet_player()
 	{
-		return sender.isPlayer();
+		return getDelegate().isPlayer();
 	}
 		
 	public static void jsFunction_sendMessage(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -64,6 +52,6 @@ public class JS_ConsoleCommandSender extends ScriptableObject
 		}
 		JS_ConsoleCommandSender caller = (JS_ConsoleCommandSender)thisObj;
 		
-		caller.sender.sendMessage(Context.toString(args[0]));
+		caller.getDelegate().sendMessage(Context.toString(args[0]));
 	}
 }

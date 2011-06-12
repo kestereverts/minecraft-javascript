@@ -81,7 +81,7 @@ public class JS_PlayerMoveEvent extends ScriptableObject
 		}
 		JS_Location location = (JS_Location)from;
 		
-		event.setFrom(location.location);
+		event.setFrom(location.getDelegate());
 	}
 	
 	public void jsSet_to(Scriptable to)
@@ -92,7 +92,7 @@ public class JS_PlayerMoveEvent extends ScriptableObject
 		}
 		JS_Location location = (JS_Location)to;
 		
-		event.setTo(location.location);
+		event.setTo(location.getDelegate());
 	}
 	
 	public void jsSet_cancelled(boolean bCancelled)

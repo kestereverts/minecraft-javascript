@@ -83,7 +83,7 @@ public class JS_PlayerCommandPreprocessEvent extends ScriptableObject
 		}
 		JS_Player player_ = (JS_Player)player;
 		
-		event.setPlayer(player_.player);
+		event.setPlayer(player_.getDelegate());
 	}
 	
 	public void jsSet_cancelled(boolean bCancelled)

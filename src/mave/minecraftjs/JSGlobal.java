@@ -28,7 +28,7 @@ public class JSGlobal extends ScriptableObject
 		}
 		else
 		{
-			globalServer.server = MinecraftJS.m_singleton.getServer();
+			globalServer.setDelegate(MinecraftJS.m_singleton.getServer());
 		}
 		return globalServer;
 	}

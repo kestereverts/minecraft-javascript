@@ -3,19 +3,12 @@ package mave.minecraftjs;
 import org.bukkit.Location;
 import org.mozilla.javascript.*;
 
-public class JS_Location extends ScriptableObject
+public class JS_Location extends JS_Delegate<Location>
 {
 	private static final long serialVersionUID = -3997078490396540883L;
-	public Location location = null;
 
 	public JS_Location()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_Location.class, DONTENUM);
 	}
 	
 	public static void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
@@ -39,18 +32,12 @@ public class JS_Location extends ScriptableObject
 		
 		if (args.length < 6)
 		{
-			caller.location = new Location(world.world, Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3]));
+			caller.setDelegate(new Location(world.getDelegate(), Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3])));
 		}
 		else
 		{
-			caller.location = new Location(world.world, Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3]), (float)Context.toNumber(args[4]), (float)Context.toNumber(args[5]));
+			caller.setDelegate(new Location(world.getDelegate(), Context.toNumber(args[1]), Context.toNumber(args[2]), Context.toNumber(args[3]), (float)Context.toNumber(args[4]), (float)Context.toNumber(args[5])));
 		}
-	}
-	
-	@Override
-	public String toString()
-	{
-		return location.toString();
 	}
 	
 	@Override
@@ -61,42 +48,42 @@ public class JS_Location extends ScriptableObject
 	
 	public double jsGet_x()
 	{
-		return location.getX();
+		return getDelegate().getX();
 	}
 	
 	public double jsGet_y()
 	{
-		return location.getY();
+		return getDelegate().getY();
 	}
 	
 	public double jsGet_z()
 	{
-		return location.getZ();
+		return getDelegate().getZ();
 	}
 
 	public float jsGet_yaw()
 	{
-		return location.getYaw();
+		return getDelegate().getYaw();
 	}
 	
 	public float jsGet_pitch()
 	{
-		return location.getPitch();
+		return getDelegate().getPitch();
 	}
 	
 	public int jsGet_blockX()
 	{
-		return location.getBlockX();
+		return getDelegate().getBlockX();
 	}
 	
 	public int jsGet_blockY()
 	{
-		return location.getBlockY();
+		return getDelegate().getBlockY();
 	}
 	
 	public int jsGet_blockZ()
 	{
-		return location.getBlockZ();
+		return getDelegate().getBlockZ();
 	}
 	
 	public Scriptable jsGet_world()
@@ -104,32 +91,32 @@ public class JS_Location extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(location.getWorld(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().getWorld(), cx, scope);
 	}
 	
 	public void jsSet_x(double x)
 	{
-		location.setX(x);
+		getDelegate().setX(x);
 	}
 	
 	public void jsSet_y(double y)
 	{
-		location.setY(y);
+		getDelegate().setY(y);
 	}
 	
 	public void jsSet_z(double z)
 	{
-		location.setZ(z);
+		getDelegate().setZ(z);
 	}
 
 	public void jsSet_yaw(float yaw)
 	{
-		location.setYaw(yaw);
+		getDelegate().setYaw(yaw);
 	}
 	
 	public void jsSet_pitch(float pitch)
 	{
-		location.setPitch(pitch);
+		getDelegate().setPitch(pitch);
 	}
 	
 	public void jsSet_world(Scriptable world)
@@ -140,7 +127,7 @@ public class JS_Location extends ScriptableObject
 		}
 		
 		JS_World world_ = (JS_World)world;
-		location.setWorld(world_.world);
+		getDelegate().setWorld(world_.getDelegate());
 	}
 	
 	public static Scriptable jsFunction_add(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -159,10 +146,10 @@ public class JS_Location extends ScriptableObject
 			}
 			JS_Location other = (JS_Location)args[0];
 			
-			return ConvertUtility.toScriptable(caller.location.add(other.location), cx, thisObj);
+			return ConvertUtility.toScriptable(caller.getDelegate().add(other.getDelegate()), cx, thisObj);
 		}
 		
-		return ConvertUtility.toScriptable(caller.location.add(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().add(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])), cx, thisObj);
 	}
 	
 	public static Scriptable jsFunction_subtract(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -181,20 +168,20 @@ public class JS_Location extends ScriptableObject
 			}
 			JS_Location other = (JS_Location)args[0];
 			
-			return ConvertUtility.toScriptable(caller.location.subtract(other.location), cx, thisObj);
+			return ConvertUtility.toScriptable(caller.getDelegate().subtract(other.getDelegate()), cx, thisObj);
 		}
 		
-		return ConvertUtility.toScriptable(caller.location.subtract(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().subtract(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])), cx, thisObj);
 	}
 	
 	public double jsGet_length()
 	{
-		return location.length();
+		return getDelegate().length();
 	}
 	
 	public double jsGet_lengthSquared()
 	{
-		return location.lengthSquared();
+		return getDelegate().lengthSquared();
 	}
 	
 	public static double jsFunction_distance(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -211,7 +198,7 @@ public class JS_Location extends ScriptableObject
 		}
 		JS_Location other = (JS_Location)args[0];
 		
-		return caller.location.distance(other.location);
+		return caller.getDelegate().distance(other.getDelegate());
 	}
 	
 	public static double jsFunction_distanceSquared(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -228,7 +215,7 @@ public class JS_Location extends ScriptableObject
 		}
 		JS_Location other = (JS_Location)args[0];
 		
-		return caller.location.distanceSquared(other.location);
+		return caller.getDelegate().distanceSquared(other.getDelegate());
 	}
 	
 	public static Scriptable jsFunction_multiply(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -239,7 +226,7 @@ public class JS_Location extends ScriptableObject
 		}
 		JS_Location caller = (JS_Location)thisObj;
 		
-		return ConvertUtility.toScriptable(caller.location.multiply(Context.toNumber(args[0])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().multiply(Context.toNumber(args[0])), cx, thisObj);
 	}
 	
 	public Scriptable jsFunction_zero()
@@ -247,6 +234,6 @@ public class JS_Location extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(location.zero(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().zero(), cx, scope);
 	}
 }

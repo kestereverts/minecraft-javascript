@@ -87,7 +87,7 @@ public class JS_BlockDispenseEvent extends ScriptableObject
 		}
 		JS_ItemStack item_ = (JS_ItemStack)itemStack;
 		
-		event.setItem(item_.itemStack);
+		event.setItem(item_.getDelegate());
 	}
 	
 	public void jsSet_velocity(Scriptable velocity)
@@ -98,6 +98,6 @@ public class JS_BlockDispenseEvent extends ScriptableObject
 		}
 		JS_Vector vector = (JS_Vector)velocity;
 		
-		event.setVelocity(vector.vector);
+		event.setVelocity(vector.getDelegate());
 	}
 }

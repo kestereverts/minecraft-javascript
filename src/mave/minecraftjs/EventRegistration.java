@@ -56,6 +56,11 @@ public class EventRegistration
 	
 	public static Priority stringToPriority(String s)
 	{
-		return Priority.valueOf(s.toUpperCase());
+		if (s.length() < 2)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		return Priority.valueOf(Character.toUpperCase(s.charAt(0)) + s.substring(1).toLowerCase());
 	}
 }

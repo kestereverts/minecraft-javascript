@@ -24,7 +24,7 @@ public class MinecraftJS extends JavaPlugin
 	}
 	
 	public void onEnable()
-	{
+	{		
 		File pluginsDir = new File("plugins/");
 		for (String s : pluginsDir.list())
 		{

@@ -1,17 +1,9 @@
 package mave.minecraftjs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
-
 import org.bukkit.Effect;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
-import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 

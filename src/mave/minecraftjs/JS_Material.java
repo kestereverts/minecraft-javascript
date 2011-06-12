@@ -1,21 +1,13 @@
 package mave.minecraftjs;
 
 import org.bukkit.Material;
-import org.mozilla.javascript.*;
 
-public class JS_Material extends ScriptableObject
+public class JS_Material extends JS_Delegate<Material>
 {
 	private static final long serialVersionUID = 1425962778799611571L;
-	public Material material = null;
 
 	public JS_Material()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_Material.class, DONTENUM);
 	}
 	
 	public void jsConstructor(int iMaterialId)
@@ -25,13 +17,7 @@ public class JS_Material extends ScriptableObject
 			return;
 		}
 		
-		material = Material.getMaterial(iMaterialId);
-	}
-	
-	@Override
-	public String toString()
-	{
-		return material.toString();
+		setDelegate(Material.getMaterial(iMaterialId));
 	}
 	
 	@Override
@@ -42,26 +28,26 @@ public class JS_Material extends ScriptableObject
 	
 	public String jsGet_name()
 	{
-		return material.name();
+		return getDelegate().name();
 	}
 	
 	public boolean jsGet_block()
 	{
-		return material.isBlock();
+		return getDelegate().isBlock();
 	}
 	
 	public int jsGet_id()
 	{
-		return material.getId();
+		return getDelegate().getId();
 	}
 	
 	public short jsGet_maxDurability()
 	{
-		return material.getMaxDurability();
+		return getDelegate().getMaxDurability();
 	}
 	
 	public int jsGet_maxStackSize()
 	{
-		return material.getMaxStackSize();
+		return getDelegate().getMaxStackSize();
 	}
 }

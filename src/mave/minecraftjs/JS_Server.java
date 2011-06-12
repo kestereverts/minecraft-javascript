@@ -7,20 +7,12 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.*;
 
-public class JS_Server extends ScriptableObject
+public class JS_Server extends JS_Delegate<Server>
 {
 	private static final long serialVersionUID = -2837646882964431104L;
-	public Server server;
 
 	public JS_Server()
 	{
-		server = null;
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_Server.class, DONTENUM);
 	}
 	
 	public void jsConstructor()
@@ -29,12 +21,6 @@ public class JS_Server extends ScriptableObject
 		{
 			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
-	}
-	
-	@Override
-	public String toString()
-	{
-		return server.toString();
 	}
 	
 	@Override
@@ -54,7 +40,7 @@ public class JS_Server extends ScriptableObject
 		if (args[0] instanceof JS_Player)
 		{
 			JS_Player sender = (JS_Player)args[0];
-			return caller.server.dispatchCommand(sender.player, Context.toString(args[1]));
+			return caller.getDelegate().dispatchCommand(sender.getDelegate(), Context.toString(args[1]));
 		}
 		
 		throw new IllegalArgumentException();
@@ -62,42 +48,42 @@ public class JS_Server extends ScriptableObject
 	
 	public String jsGet_ip()
 	{
-		return server.getIp();
+		return getDelegate().getIp();
 	}
 
 	public int jsGet_port()
 	{
-		return server.getPort();
+		return getDelegate().getPort();
 	}
 	
 	public int jsGet_maxPlayers()
 	{
-		return server.getMaxPlayers();
+		return getDelegate().getMaxPlayers();
 	}
 	
 	public String jsGet_name()
 	{
-		return server.getName();
+		return getDelegate().getName();
 	}
 	
 	public String jsGet_serverId()
 	{
-		return server.getServerId();
+		return getDelegate().getServerId();
 	}
 	
 	public String jsGet_serverName()
 	{
-		return server.getServerName();
+		return getDelegate().getServerName();
 	}
 	
 	public String jsGet_updateFolder()
 	{
-		return server.getUpdateFolder();
+		return getDelegate().getUpdateFolder();
 	}
 	
 	public String jsGet_version()
 	{
-		return server.getVersion();
+		return getDelegate().getVersion();
 	}
 	
 	public static Scriptable jsFunction_getWorld(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -108,7 +94,7 @@ public class JS_Server extends ScriptableObject
 		}
 		JS_Server caller = (JS_Server)thisObj;
 		
-		return ConvertUtility.toScriptable(caller.server.getWorld(Context.toString(args[0])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().getWorld(Context.toString(args[0])), cx, thisObj);
 	}
 	
 	public Scriptable jsGet_worlds()
@@ -116,7 +102,7 @@ public class JS_Server extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		List<World> worlds = server.getWorlds();
+		List<World> worlds = getDelegate().getWorlds();
 		Object[] res = new Object[worlds.size()];
 		int i = 0;
 		for (World w : worlds)
@@ -136,7 +122,7 @@ public class JS_Server extends ScriptableObject
 		}
 		JS_Server caller = (JS_Server)thisObj;
 		
-		return ConvertUtility.toScriptable(caller.server.getPlayer(Context.toString(args[0])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().getPlayer(Context.toString(args[0])), cx, thisObj);
 	}
 	
 	public Scriptable jsGet_onlinePlayers()
@@ -144,7 +130,7 @@ public class JS_Server extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		Player[] plrs = server.getOnlinePlayers();
+		Player[] plrs = getDelegate().getOnlinePlayers();
 		Object[] res = new Object[plrs.length];
 		int i = 0;
 		MinecraftJS.m_bInternalConstruction = true;
@@ -166,7 +152,7 @@ public class JS_Server extends ScriptableObject
 		}
 		JS_Server caller = (JS_Server)thisObj;
 		
-		return caller.server.broadcastMessage(Context.toString(args[0]));
+		return caller.getDelegate().broadcastMessage(Context.toString(args[0]));
 	}
 	
 	public static Scriptable jsFunction_matchPlayer(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -177,18 +163,18 @@ public class JS_Server extends ScriptableObject
 		}
 		JS_Server caller = (JS_Server)thisObj;
 		
-		List<Player> players = caller.server.matchPlayer(Context.toString(args[0]));
+		List<Player> players = caller.getDelegate().matchPlayer(Context.toString(args[0]));
 		return cx.newArray(thisObj, players.toArray());
 	}
 	
 	public void jsFunction_reload()
 	{
-		server.reload();
+		getDelegate().reload();
 	}
 	
 	public void jsFunction_savePlayers()
 	{
-		server.savePlayers();
+		getDelegate().savePlayers();
 	}
 	
 	public Scriptable jsGet_pluginManager()
@@ -196,7 +182,7 @@ public class JS_Server extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(server.getPluginManager(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().getPluginManager(), cx, scope);
 	}
 	
 	// TODO: createWorld
@@ -212,10 +198,10 @@ public class JS_Server extends ScriptableObject
 		if (args[0] instanceof JS_World)
 		{
 			JS_World world = (JS_World)args[0];
-			return caller.server.unloadWorld(world.world, Context.toBoolean(args[1]));
+			return caller.getDelegate().unloadWorld(world.getDelegate(), Context.toBoolean(args[1]));
 		}
 		
-		return caller.server.unloadWorld(Context.toString(args[0]), Context.toBoolean(args[1]));
+		return caller.getDelegate().unloadWorld(Context.toString(args[0]), Context.toBoolean(args[1]));
 	}
 	
 	// TODO: more..

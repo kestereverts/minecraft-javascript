@@ -68,6 +68,6 @@ public class JS_PlayerRespawnEvent extends ScriptableObject
 		}
 		JS_Location location = (JS_Location)respawnLocation;
 		
-		event.setRespawnLocation(location.location);
+		event.setRespawnLocation(location.getDelegate());
 	}
 }

@@ -3,19 +3,12 @@ package mave.minecraftjs;
 import org.bukkit.util.Vector;
 import org.mozilla.javascript.*;
 
-public class JS_Vector extends ScriptableObject
+public class JS_Vector extends JS_Delegate<Vector>
 {
 	private static final long serialVersionUID = -2515348271765295694L;
-	public Vector vector = null;
 
 	public JS_Vector()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_Vector.class, DONTENUM);
 	}
 	
 	public static Scriptable jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
@@ -29,20 +22,14 @@ public class JS_Vector extends ScriptableObject
 		
 		if (args.length < 3)
 		{
-			vector.vector = new Vector();
+			vector.setDelegate(new Vector());
 		}
 		else
 		{
-			vector.vector = new Vector(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]));
+			vector.setDelegate(new Vector(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2])));
 		}
 		
 		return vector;
-	}
-	
-	@Override
-	public String toString()
-	{
-		return vector.toString();
 	}
 	
 	@Override
@@ -53,57 +40,57 @@ public class JS_Vector extends ScriptableObject
 	
 	public double jsGet_x()
 	{
-		return vector.getX();
+		return getDelegate().getX();
 	}
 	
 	public double jsGet_y()
 	{
-		return vector.getY();
+		return getDelegate().getY();
 	}
 	
 	public double jsGet_z()
 	{
-		return vector.getZ();
+		return getDelegate().getZ();
 	}
 
 	public double jsGet_length()
 	{
-		return vector.length();
+		return getDelegate().length();
 	}
 	
 	public double jsGet_lengthSquared()
 	{
-		return vector.lengthSquared();
+		return getDelegate().lengthSquared();
 	}
 	
 	public int jsGet_blockX()
 	{
-		return vector.getBlockX();
+		return getDelegate().getBlockX();
 	}
 	
 	public int jsGet_blockY()
 	{
-		return vector.getBlockY();
+		return getDelegate().getBlockY();
 	}
 	
 	public int jsGet_blockZ()
 	{
-		return vector.getBlockZ();
+		return getDelegate().getBlockZ();
 	}
 	
 	public void jsSet_x(double x)
 	{
-		vector.setX(x);
+		getDelegate().setX(x);
 	}
 	
 	public void jsSet_y(double y)
 	{
-		vector.setY(y);
+		getDelegate().setY(y);
 	}
 	
 	public void jsSet_z(double z)
 	{
-		vector.setZ(z);
+		getDelegate().setZ(z);
 	}
 	
 	public static Scriptable jsFunction_add(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -120,7 +107,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.add(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().add(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static Scriptable jsFunction_subtract(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -137,7 +124,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.subtract(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().subtract(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static Scriptable jsFunction_multiply(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -150,11 +137,11 @@ public class JS_Vector extends ScriptableObject
 		
 		if (!(args[0] instanceof JS_Vector))
 		{
-			return ConvertUtility.toScriptable(caller.vector.multiply(Context.toNumber(args[0])), cx, thisObj);
+			return ConvertUtility.toScriptable(caller.getDelegate().multiply(Context.toNumber(args[0])), cx, thisObj);
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.multiply(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().multiply(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static Scriptable jsFunction_divide(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -171,7 +158,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.divide(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().divide(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static float jsFunction_angle(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -188,7 +175,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return caller.vector.angle(otherVector.vector);
+		return caller.getDelegate().angle(otherVector.getDelegate());
 	}
 	
 	public Scriptable jsFunction_clone()
@@ -196,7 +183,7 @@ public class JS_Vector extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(vector.clone(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().clone(), cx, scope);
 	}
 	
 	public static Scriptable jsFunction_copy(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -213,7 +200,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.copy(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().copy(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static Scriptable jsFunction_crossProduct(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -230,7 +217,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.crossProduct(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().crossProduct(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static double jsFunction_distance(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -247,7 +234,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return caller.vector.distance(otherVector.vector);
+		return caller.getDelegate().distance(otherVector.getDelegate());
 	}
 	
 	public static double jsFunction_distanceSquared(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -264,7 +251,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return caller.vector.distanceSquared(otherVector.vector);
+		return caller.getDelegate().distanceSquared(otherVector.getDelegate());
 	}
 	
 	public static double jsFunction_dot(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -281,7 +268,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return caller.vector.dot(otherVector.vector);
+		return caller.getDelegate().dot(otherVector.getDelegate());
 	}
 	
 	public static Scriptable jsFunction_midpoint(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -298,7 +285,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return ConvertUtility.toScriptable(caller.vector.getMidpoint(otherVector.vector), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().getMidpoint(otherVector.getDelegate()), cx, thisObj);
 	}
 	
 	public static boolean jsFunction_isInAABB(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -316,7 +303,7 @@ public class JS_Vector extends ScriptableObject
 		JS_Vector otherVector = (JS_Vector)args[0];
 		JS_Vector otherVector2 = (JS_Vector)args[1];
 		
-		return caller.vector.isInAABB(otherVector.vector, otherVector2.vector);
+		return caller.getDelegate().isInAABB(otherVector.getDelegate(), otherVector2.getDelegate());
 	}
 	
 	public static boolean jsFunction_isInSphere(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -333,7 +320,7 @@ public class JS_Vector extends ScriptableObject
 		}
 		JS_Vector otherVector = (JS_Vector)args[0];
 		
-		return caller.vector.isInSphere(otherVector.vector, Context.toNumber(args[1]));
+		return caller.getDelegate().isInSphere(otherVector.getDelegate(), Context.toNumber(args[1]));
 	}
 	
 	public Scriptable jsFunction_normalize()
@@ -341,7 +328,7 @@ public class JS_Vector extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(vector.normalize(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().normalize(), cx, scope);
 	}
 	
 	public static Scriptable jsFunction_toLocation(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -360,10 +347,10 @@ public class JS_Vector extends ScriptableObject
 		
 		if (args.length < 3)
 		{
-			return ConvertUtility.toScriptable(caller.vector.toLocation(world.world), cx, thisObj);
+			return ConvertUtility.toScriptable(caller.getDelegate().toLocation(world.getDelegate()), cx, thisObj);
 		}
 		
-		return ConvertUtility.toScriptable(caller.vector.toLocation(world.world, (float)Context.toNumber(args[1]), (float)Context.toNumber(args[2])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().toLocation(world.getDelegate(), (float)Context.toNumber(args[1]), (float)Context.toNumber(args[2])), cx, thisObj);
 	}
 	
 	public Scriptable jsFunction_zero()
@@ -371,6 +358,6 @@ public class JS_Vector extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(vector.zero(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().zero(), cx, scope);
 	}
 }

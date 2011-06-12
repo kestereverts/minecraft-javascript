@@ -5,19 +5,12 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginManager;
 import org.mozilla.javascript.*;
 
-public class JS_PluginManager extends ScriptableObject
+public class JS_PluginManager extends JS_Delegate<PluginManager>
 {
 	private static final long serialVersionUID = 7329123953244324368L;
-	public PluginManager pluginManager = null;
 
 	public JS_PluginManager()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_PluginManager.class, DONTENUM);
 	}
 	
 	public void jsConstructor()
@@ -27,13 +20,7 @@ public class JS_PluginManager extends ScriptableObject
 			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
 	}
-	
-	@Override
-	public String toString()
-	{
-		return pluginManager.toString();
-	}
-	
+
 	@Override
 	public String getClassName()
 	{
@@ -42,12 +29,12 @@ public class JS_PluginManager extends ScriptableObject
 	
 	public void jsFunction_clearPlugins()
 	{
-		pluginManager.clearPlugins();
+		getDelegate().clearPlugins();
 	}
 	
 	public void jsFunction_disablePlugins()
 	{
-		pluginManager.disablePlugins();
+		getDelegate().disablePlugins();
 	}
 	
 	public static boolean jsFunction_isPluginEnabled(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -58,7 +45,7 @@ public class JS_PluginManager extends ScriptableObject
 		}
 		JS_PluginManager caller = (JS_PluginManager)thisObj;
 		
-		return caller.pluginManager.isPluginEnabled(Context.toString(args[0]));
+		return caller.getDelegate().isPluginEnabled(Context.toString(args[0]));
 	}
 	
 	public static void jsFunction_registerEvent(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -119,6 +106,6 @@ public class JS_PluginManager extends ScriptableObject
 		
 		//BukkitTest.m_lstEventRegistrations.add(reg);
 		
-		caller.pluginManager.registerEvent(event, reg.m_listener, priority, MinecraftJS.m_singleton);
+		caller.getDelegate().registerEvent(event, reg.m_listener, priority, MinecraftJS.m_singleton);
 	}
 }

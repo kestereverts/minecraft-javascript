@@ -88,6 +88,6 @@ public class JS_SnowFormEvent extends ScriptableObject
 		}
 		JS_Material material_ = (JS_Material)material;
 		
-		event.setMaterial(material_.material);
+		event.setMaterial(material_.getDelegate());
 	}
 }

@@ -109,62 +109,62 @@ public class ConvertUtility
 		if (s instanceof JS_Player)
 		{
 			JS_Player entity = (JS_Player)s;
-			return entity.player;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Zombie)
 		{
 			JS_Zombie entity = (JS_Zombie)s;
-			return entity.zombie;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Skeleton)
 		{
 			JS_Skeleton entity = (JS_Skeleton)s;
-			return entity.skeleton;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Spider)
 		{
 			JS_Spider entity = (JS_Spider)s;
-			return entity.spider;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Creeper)
 		{
 			JS_Creeper entity = (JS_Creeper)s;
-			return entity.creeper;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Slime)
 		{
 			JS_Slime entity = (JS_Slime)s;
-			return entity.slime;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Ghast)
 		{
 			JS_Ghast entity = (JS_Ghast)s;
-			return entity.ghast;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_PigZombie)
 		{
 			JS_PigZombie entity = (JS_PigZombie)s;
-			return entity.pigZombie;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Giant)
 		{
 			JS_Giant entity = (JS_Giant)s;
-			return entity.giant;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Item)
 		{
 			JS_Item entity = (JS_Item)s;
-			return entity.item;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_LightningStrike)
 		{
 			JS_LightningStrike entity = (JS_LightningStrike)s;
-			return entity.strike;
+			return entity.getDelegate();
 		}
 		else if (s instanceof JS_Painting)
 		{
 			JS_Painting entity = (JS_Painting)s;
-			return entity.painting;
+			return entity.getDelegate();
 		}
 
 		throw new IllegalArgumentException();
@@ -240,7 +240,7 @@ public class ConvertUtility
 		JS_Player entity = (JS_Player)cx.newObject(scope, "Player");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.player = p;
+		entity.setDelegate(p);
 		return entity;
 	}
 	
@@ -255,7 +255,7 @@ public class ConvertUtility
 		JS_Zombie entity = (JS_Zombie)cx.newObject(scope, "Zombie");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.zombie = z;
+		entity.setDelegate(z);
 		return entity;
 	}
 	
@@ -270,7 +270,7 @@ public class ConvertUtility
 		JS_Skeleton entity = (JS_Skeleton)cx.newObject(scope, "Skeleton");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.skeleton = s;
+		entity.setDelegate(s);
 		return entity;
 	}
 	
@@ -285,7 +285,7 @@ public class ConvertUtility
 		JS_Spider entity = (JS_Spider)cx.newObject(scope, "Spider");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.spider = s;
+		entity.setDelegate(s);
 		return entity;
 	}
 	
@@ -300,7 +300,7 @@ public class ConvertUtility
 		JS_Creeper entity = (JS_Creeper)cx.newObject(scope, "Creeper");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.creeper = c;
+		entity.setDelegate(c);
 		return entity;
 	}
 	
@@ -315,7 +315,7 @@ public class ConvertUtility
 		JS_Slime entity = (JS_Slime)cx.newObject(scope, "Slime");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.slime = s;
+		entity.setDelegate(s);
 		return entity;
 	}
 	
@@ -330,7 +330,7 @@ public class ConvertUtility
 		JS_Ghast entity = (JS_Ghast)cx.newObject(scope, "Ghast");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.ghast = g;
+		entity.setDelegate(g);
 		return entity;
 	}
 	
@@ -345,7 +345,7 @@ public class ConvertUtility
 		JS_PigZombie entity = (JS_PigZombie)cx.newObject(scope, "PigZombie");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.pigZombie = p;
+		entity.setDelegate(p);
 		return entity;
 	}
 	
@@ -360,7 +360,7 @@ public class ConvertUtility
 		JS_Giant entity = (JS_Giant)cx.newObject(scope, "Giant");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.giant = g;
+		entity.setDelegate(g);
 		return entity;
 	}
 	
@@ -375,7 +375,7 @@ public class ConvertUtility
 		JS_Item entity = (JS_Item)cx.newObject(scope, "Item");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.item = i;
+		entity.setDelegate(i);
 		return entity;
 	}
 	
@@ -390,7 +390,7 @@ public class ConvertUtility
 		JS_LightningStrike entity = (JS_LightningStrike)cx.newObject(scope, "LightningStrike");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.strike = s;
+		entity.setDelegate(s);
 		return entity;
 	}
 	
@@ -405,7 +405,7 @@ public class ConvertUtility
 		JS_Painting entity = (JS_Painting)cx.newObject(scope, "Painting");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.painting = p;
+		entity.setDelegate(p);
 		return entity;
 	}
 	
@@ -420,7 +420,7 @@ public class ConvertUtility
 		JS_Block entity = (JS_Block)cx.newObject(scope, "Block");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.block = b;
+		entity.setDelegate(b);
 		return entity;
 	}
 	
@@ -435,7 +435,7 @@ public class ConvertUtility
 		JS_Location entity = (JS_Location)cx.newObject(scope, "Location");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.location = l;
+		entity.setDelegate(l);
 		return entity;
 	}
 	
@@ -450,7 +450,7 @@ public class ConvertUtility
 		JS_Server entity = (JS_Server)cx.newObject(scope, "Server");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.server = s;
+		entity.setDelegate(s);
 		return entity;
 	}
 	
@@ -465,7 +465,7 @@ public class ConvertUtility
 		JS_World entity = (JS_World)cx.newObject(scope, "World");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.world = w;
+		entity.setDelegate(w);
 		return entity;
 	}
 	
@@ -480,7 +480,7 @@ public class ConvertUtility
 		JS_ItemStack entity = (JS_ItemStack)cx.newObject(scope, "ItemStack");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.itemStack = i;
+		entity.setDelegate(i);
 		return entity;
 	}
 	
@@ -495,7 +495,7 @@ public class ConvertUtility
 		JS_PluginManager entity = (JS_PluginManager)cx.newObject(scope, "PluginManager");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.pluginManager = p;
+		entity.setDelegate(p);
 		return entity;
 	}
 	
@@ -510,7 +510,7 @@ public class ConvertUtility
 		JS_Material entity = (JS_Material)cx.newObject(scope, "Material");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.material = m;
+		entity.setDelegate(m);
 		return entity;
 	}
 	
@@ -525,7 +525,7 @@ public class ConvertUtility
 		JS_Chunk entity = (JS_Chunk)cx.newObject(scope, "Chunk");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.chunk = c;
+		entity.setDelegate(c);
 		return entity;
 	}
 	
@@ -540,7 +540,7 @@ public class ConvertUtility
 		JS_Vector entity = (JS_Vector)cx.newObject(scope, "Vector");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.vector = v;
+		entity.setDelegate(v);
 		return entity;
 	}
 	
@@ -555,7 +555,7 @@ public class ConvertUtility
 		JS_BlockFace entity = (JS_BlockFace)cx.newObject(scope, "BlockFace");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.blockFace = b;
+		entity.setDelegate(b);
 		return entity;
 	}
 	
@@ -570,7 +570,7 @@ public class ConvertUtility
 		JS_BlockState entity = (JS_BlockState)cx.newObject(scope, "BlockState");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.blockState = b;
+		entity.setDelegate(b);
 		return entity;
 	}
 	
@@ -585,7 +585,7 @@ public class ConvertUtility
 		JS_Plugin entity = (JS_Plugin)cx.newObject(scope, "Plugin");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.plugin = p;
+		entity.setDelegate(p);
 		return entity;
 	}
 	
@@ -600,7 +600,7 @@ public class ConvertUtility
 		JS_ConsoleCommandSender entity = (JS_ConsoleCommandSender)cx.newObject(scope, "ConsoleCommandSender");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
-		entity.sender = s;
+		entity.setDelegate(s);
 		return entity;
 	}
 	

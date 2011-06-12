@@ -15,19 +15,12 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.*;
 
-public class JS_World extends ScriptableObject
+public class JS_World extends JS_Delegate<World>
 {
 	private static final long serialVersionUID = 8424835903715717677L;
-	public World world = null;
 
 	public JS_World()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_World.class, DONTENUM);
 	}
 	
 	public void jsConstructor()
@@ -36,12 +29,6 @@ public class JS_World extends ScriptableObject
 		{
 			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
-	}
-	
-	@Override
-	public String toString()
-	{
-		return world.toString();
 	}
 	
 	@Override
@@ -65,7 +52,7 @@ public class JS_World extends ScriptableObject
 		JS_Location location = (JS_Location)args[0];
 		JS_ItemStack itemStack = (JS_ItemStack)args[1];
 		
-		return ConvertUtility.toScriptable(caller.world.dropItem(location.location, itemStack.itemStack), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().dropItem(location.getDelegate(), itemStack.getDelegate()), cx, thisObj);
 	}
 	
 	public static Scriptable jsFunction_dropItemNaturally(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -83,7 +70,7 @@ public class JS_World extends ScriptableObject
 		JS_Location location = (JS_Location)args[0];
 		JS_ItemStack itemStack = (JS_ItemStack)args[1];
 
-		return ConvertUtility.toScriptable(caller.world.dropItemNaturally(location.location, itemStack.itemStack), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().dropItemNaturally(location.getDelegate(), itemStack.getDelegate()), cx, thisObj);
 	}
 	
 	public static boolean isFunction_generateTree(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -101,7 +88,7 @@ public class JS_World extends ScriptableObject
 		JS_Location location = (JS_Location)args[0];
 		
 		TreeType treeType = ConvertUtility.stringToTreeType(Context.toString(args[1]));
-		return caller.world.generateTree(location.location, treeType);
+		return caller.getDelegate().generateTree(location.getDelegate(), treeType);
 	}
 	
 	public static Scriptable jsFunction_getBlockAt(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -121,11 +108,11 @@ public class JS_World extends ScriptableObject
 			}
 			JS_Location location = (JS_Location)args[0];
 			
-			block = caller.world.getBlockAt(location.location);
+			block = caller.getDelegate().getBlockAt(location.getDelegate());
 		}
 		else
 		{
-			block = caller.world.getBlockAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
+			block = caller.getDelegate().getBlockAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
 		}
 		
 		return ConvertUtility.toScriptable(block, cx, thisObj);
@@ -147,10 +134,10 @@ public class JS_World extends ScriptableObject
 			}
 			JS_Location location = (JS_Location)args[0];
 			
-			return caller.world.getBlockTypeIdAt(location.location);
+			return caller.getDelegate().getBlockTypeIdAt(location.getDelegate());
 		}
 		
-		return caller.world.getBlockTypeIdAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
+		return caller.getDelegate().getBlockTypeIdAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
 	}
 	
 	public static Scriptable jsFunction_getChunkAt(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -166,18 +153,18 @@ public class JS_World extends ScriptableObject
 			if (args[0] instanceof JS_Block)
 			{
 				JS_Block block = (JS_Block)args[0];
-				return ConvertUtility.toScriptable(caller.world.getChunkAt(block.block), cx, thisObj);
+				return ConvertUtility.toScriptable(caller.getDelegate().getChunkAt(block.getDelegate()), cx, thisObj);
 			}
 			else if (args[0] instanceof JS_Location)
 			{
 				JS_Location location = (JS_Location)args[0];
-				return ConvertUtility.toScriptable(caller.world.getChunkAt(location.location), cx, thisObj);
+				return ConvertUtility.toScriptable(caller.getDelegate().getChunkAt(location.getDelegate()), cx, thisObj);
 			}
 			
 			throw new IllegalArgumentException();
 		}
 		
-		return ConvertUtility.toScriptable(caller.world.getChunkAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().getChunkAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1])), cx, thisObj);
 	}
 	
 	public Scriptable jsGet_entities()
@@ -185,7 +172,7 @@ public class JS_World extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		List<Entity> entities = world.getEntities();
+		List<Entity> entities = getDelegate().getEntities();
 		List<Object> res = new ArrayList<Object>();
 		
 		Iterator<Entity> it = entities.iterator();
@@ -211,12 +198,12 @@ public class JS_World extends ScriptableObject
 	
 	public String jsGet_environment()
 	{
-		return world.getEnvironment().toString().toLowerCase();
+		return getDelegate().getEnvironment().toString().toLowerCase();
 	}
 	
 	public long jsGet_fullTime()
 	{
-		return world.getFullTime();
+		return getDelegate().getFullTime();
 	}
 	
 	public static int jsFunction_getHighestBlockYAt(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -235,15 +222,15 @@ public class JS_World extends ScriptableObject
 			}
 			
 			JS_Location location = (JS_Location)args[0];
-			return caller.world.getHighestBlockYAt(location.location);
+			return caller.getDelegate().getHighestBlockYAt(location.getDelegate());
 		}
 		
-		return caller.world.getHighestBlockYAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+		return caller.getDelegate().getHighestBlockYAt((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 	}
 	
 	public long jsGet_id()
 	{
-		return world.getId();
+		return getDelegate().getId();
 	}
 	
 	public Scriptable jsGet_livingEntities()
@@ -251,7 +238,7 @@ public class JS_World extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		List<LivingEntity> entities = world.getLivingEntities();
+		List<LivingEntity> entities = getDelegate().getLivingEntities();
 		List<Object> res = new ArrayList<Object>();
 		
 		Iterator<LivingEntity> it = entities.iterator();
@@ -280,7 +267,7 @@ public class JS_World extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		Chunk[] chunks = world.getLoadedChunks();
+		Chunk[] chunks = getDelegate().getLoadedChunks();
 		List<Object> res = new ArrayList<Object>();
 		
 		for (Chunk c : chunks)
@@ -304,7 +291,7 @@ public class JS_World extends ScriptableObject
 	
 	public String jsGet_name()
 	{
-		return world.getName();
+		return getDelegate().getName();
 	}
 	
 	public Scriptable jsGet_players()
@@ -312,7 +299,7 @@ public class JS_World extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		List<Player> players = world.getPlayers();
+		List<Player> players = getDelegate().getPlayers();
 		List<Object> res = new ArrayList<Object>();
 		
 		Iterator<Player> it = players.iterator();
@@ -338,12 +325,12 @@ public class JS_World extends ScriptableObject
 	
 	public boolean jsGet_pvp()
 	{
-		return world.getPVP();
+		return getDelegate().getPVP();
 	}
 	
 	public long jsGet_seed()
 	{
-		return world.getSeed();
+		return getDelegate().getSeed();
 	}
 	
 	public Scriptable jsGet_spawnLocation()
@@ -351,27 +338,27 @@ public class JS_World extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(world.getSpawnLocation(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().getSpawnLocation(), cx, scope);
 	}
 	
 	public int jsGet_thunderDuration()
 	{
-		return world.getThunderDuration();
+		return getDelegate().getThunderDuration();
 	}
 	
 	public long jsGet_time()
 	{
-		return world.getTime();
+		return getDelegate().getTime();
 	}
 	
 	public int jsGet_weatherDuration()
 	{
-		return world.getWeatherDuration();
+		return getDelegate().getWeatherDuration();
 	}
 	
 	public boolean jsGet_storm()
 	{
-		return world.hasStorm();
+		return getDelegate().hasStorm();
 	}
 	
 	public static boolean jsFunction_isChunkLoaded(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -389,15 +376,15 @@ public class JS_World extends ScriptableObject
 				throw new IllegalArgumentException();
 			}
 			JS_Chunk chunk = (JS_Chunk)args[0];
-			return caller.world.isChunkLoaded(chunk.chunk);
+			return caller.getDelegate().isChunkLoaded(chunk.getDelegate());
 		}
 		
-		return caller.world.isChunkLoaded((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+		return caller.getDelegate().isChunkLoaded((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 	}
 	
 	public boolean jsGet_thundering()
 	{
-		return world.isThundering();
+		return getDelegate().isThundering();
 	}
 	
 	public static void jsFunction_loadChunk(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -415,17 +402,17 @@ public class JS_World extends ScriptableObject
 				throw new IllegalArgumentException();
 			}
 			JS_Chunk chunk = (JS_Chunk)args[0];
-			caller.world.loadChunk(chunk.chunk);
+			caller.getDelegate().loadChunk(chunk.getDelegate());
 			return;
 		}
 		
 		if (args.length < 3)
 		{		
-			caller.world.loadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+			caller.getDelegate().loadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 			return;
 		}
 		
-		caller.world.loadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
+		caller.getDelegate().loadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
 	}
 	
 	public static boolean jsFunction_refreshChunk(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -436,7 +423,7 @@ public class JS_World extends ScriptableObject
 		}
 		JS_World caller = (JS_World)thisObj;
 		
-		return caller.world.refreshChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+		return caller.getDelegate().refreshChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 	}
 	
 	public static boolean jsFunction_regenerateChunk(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -447,22 +434,22 @@ public class JS_World extends ScriptableObject
 		}
 		JS_World caller = (JS_World)thisObj;
 		
-		return caller.world.regenerateChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+		return caller.getDelegate().regenerateChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 	}
 	
 	public void jsFunction_save()
 	{
-		world.save();
+		getDelegate().save();
 	}
 	
 	public void jsSet_fullTime(long lFullTime)
 	{
-		world.setFullTime(lFullTime);
+		getDelegate().setFullTime(lFullTime);
 	}
 	
 	public void jsSet_pvp(boolean bPVP)
 	{
-		world.setPVP(bPVP);
+		getDelegate().setPVP(bPVP);
 	}
 	
 	// Tolerance (a setter)
@@ -474,7 +461,7 @@ public class JS_World extends ScriptableObject
 		}
 		
 		JS_Location location = (JS_Location)spawnLocation;
-		world.setSpawnLocation((int)location.location.getX(), (int)location.location.getY(), (int)location.location.getZ());
+		getDelegate().setSpawnLocation((int)location.getDelegate().getX(), (int)location.getDelegate().getY(), (int)location.getDelegate().getZ());
 	}
 	
 	// Tolerance (we accept a Location here too)
@@ -493,35 +480,35 @@ public class JS_World extends ScriptableObject
 				throw new IllegalArgumentException();
 			}
 			JS_Location location = (JS_Location)args[0];
-			return caller.world.setSpawnLocation((int)location.location.getX(), (int)location.location.getY(), (int)location.location.getZ());
+			return caller.getDelegate().setSpawnLocation((int)location.getDelegate().getX(), (int)location.getDelegate().getY(), (int)location.getDelegate().getZ());
 		}
 		
-		return caller.world.setSpawnLocation((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
+		return caller.getDelegate().setSpawnLocation((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
 	}
 	
 	public void jsSet_storm(boolean bStorm)
 	{
-		world.setStorm(bStorm);
+		getDelegate().setStorm(bStorm);
 	}
 	
 	public void jsSet_thunderDuration(int iDuration)
 	{
-		world.setThunderDuration(iDuration);
+		getDelegate().setThunderDuration(iDuration);
 	}
 	
 	public void jsSet_thundering(boolean bThundering)
 	{
-		world.setThundering(bThundering);
+		getDelegate().setThundering(bThundering);
 	}
 	
 	public void jsSet_time(long lTime)
 	{
-		world.setTime(lTime);
+		getDelegate().setTime(lTime);
 	}
 	
 	public void jsSet_weatherDuration(int iDuration)
 	{
-		world.setWeatherDuration(iDuration);
+		getDelegate().setWeatherDuration(iDuration);
 	}
 	
 	public static boolean jsFunction_unloadChunk(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -534,15 +521,15 @@ public class JS_World extends ScriptableObject
 		
 		if (args.length < 3)
 		{
-			return caller.world.unloadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+			return caller.getDelegate().unloadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 		}
 		
 		if (args.length < 4)
 		{
-			return caller.world.unloadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
+			return caller.getDelegate().unloadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
 		}
 
-		return caller.world.unloadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]), Context.toBoolean(args[3]));
+		return caller.getDelegate().unloadChunk((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]), Context.toBoolean(args[3]));
 	}
 	
 	public static boolean jsFunction_unloadChunkRequest(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -555,10 +542,10 @@ public class JS_World extends ScriptableObject
 		
 		if (args.length < 3)
 		{
-			return caller.world.unloadChunkRequest((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
+			return caller.getDelegate().unloadChunkRequest((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]));
 		}
 
-		return caller.world.unloadChunkRequest((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
+		return caller.getDelegate().unloadChunkRequest((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), Context.toBoolean(args[2]));
 	}
 	
 	public static boolean jsFunction_createExplosion(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -577,10 +564,10 @@ public class JS_World extends ScriptableObject
 			}
 			JS_Location location = (JS_Location)args[0];
 			
-			return caller.world.createExplosion(location.location, (float)Context.toNumber(args[1]));
+			return caller.getDelegate().createExplosion(location.getDelegate(), (float)Context.toNumber(args[1]));
 		}
 		
-		return caller.world.createExplosion(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]), (float)Context.toNumber(args[3]));
+		return caller.getDelegate().createExplosion(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]), (float)Context.toNumber(args[3]));
 	}
 	
 	// TODO: jsGet_generator
@@ -604,10 +591,10 @@ public class JS_World extends ScriptableObject
 		
 		if (args.length < 4)
 		{
-			caller.world.playEffect(location.location, effect, (int)Context.toNumber(args[2]));
+			caller.getDelegate().playEffect(location.getDelegate(), effect, (int)Context.toNumber(args[2]));
 			return;
 		}
 		
-		caller.world.playEffect(location.location, effect, (int)Context.toNumber(args[2]), (int)Context.toNumber(args[3]));
+		caller.getDelegate().playEffect(location.getDelegate(), effect, (int)Context.toNumber(args[2]), (int)Context.toNumber(args[3]));
 	}
 }

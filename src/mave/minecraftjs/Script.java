@@ -146,32 +146,32 @@ public class Script
 		m_jsGlobal.initializeFunctionProperties();
 		try
 		{
-			ScriptableObject.defineClass(m_globalScope, JS_Player.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Creeper.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Ghast.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Giant.class);
-			ScriptableObject.defineClass(m_globalScope, JS_PigZombie.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Skeleton.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Slime.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Spider.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Zombie.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Item.class);
-			ScriptableObject.defineClass(m_globalScope, JS_LightningStrike.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Painting.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Player.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Creeper.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Ghast.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Giant.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_PigZombie.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Skeleton.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Slime.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Spider.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Zombie.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Item.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_LightningStrike.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Painting.class, false, true);
 			
-			ScriptableObject.defineClass(m_globalScope, JS_Server.class);
-			ScriptableObject.defineClass(m_globalScope, JS_World.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Location.class);
-			ScriptableObject.defineClass(m_globalScope, JS_PluginManager.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Material.class);
-			ScriptableObject.defineClass(m_globalScope, JS_ItemStack.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Block.class);
-			ScriptableObject.defineClass(m_globalScope, JS_BlockFace.class);
-			ScriptableObject.defineClass(m_globalScope, JS_BlockState.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Chunk.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Vector.class);
-			ScriptableObject.defineClass(m_globalScope, JS_ConsoleCommandSender.class);
-			ScriptableObject.defineClass(m_globalScope, JS_Plugin.class);
+			ScriptableObject.defineClass(m_globalScope, JS_Server.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_World.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Location.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_PluginManager.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Material.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_ItemStack.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Block.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_BlockFace.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_BlockState.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Chunk.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Vector.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_ConsoleCommandSender.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Plugin.class, false, true);
 			
 			ScriptableObject.defineClass(m_globalScope, JS_PlayerAnimationEvent.class);
 			ScriptableObject.defineClass(m_globalScope, JS_PlayerBedEnterEvent.class);

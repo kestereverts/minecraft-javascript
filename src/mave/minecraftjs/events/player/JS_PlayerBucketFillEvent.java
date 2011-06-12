@@ -102,6 +102,6 @@ public class JS_PlayerBucketFillEvent extends ScriptableObject
 		}
 		JS_ItemStack itemStack_ = (JS_ItemStack)itemStack;
 		
-		event.setItemStack(itemStack_.itemStack);
+		event.setItemStack(itemStack_.getDelegate());
 	}
 }

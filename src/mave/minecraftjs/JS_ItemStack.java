@@ -3,19 +3,12 @@ package mave.minecraftjs;
 import org.bukkit.inventory.ItemStack;
 import org.mozilla.javascript.*;
 
-public class JS_ItemStack extends ScriptableObject
+public class JS_ItemStack extends JS_Delegate<ItemStack>
 {
 	private static final long serialVersionUID = 8927586649880286359L;
-	public ItemStack itemStack = null;
 
 	public JS_ItemStack()
 	{
-	}
-	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_ItemStack.class, DONTENUM);
 	}
 	
 	public void jsConstructor(Scriptable material, int iCount)
@@ -30,13 +23,7 @@ public class JS_ItemStack extends ScriptableObject
 			throw new IllegalArgumentException();
 		}
 		JS_Material material_ = (JS_Material)material;
-		itemStack = new ItemStack(material_.material, iCount);
-	}
-	
-	@Override
-	public String toString()
-	{
-		return itemStack.toString();
+		setDelegate(new ItemStack(material_.getDelegate(), iCount));
 	}
 	
 	@Override
@@ -47,17 +34,17 @@ public class JS_ItemStack extends ScriptableObject
 	
 	public int jsGet_amount()
 	{
-		return itemStack.getAmount();
+		return getDelegate().getAmount();
 	}
 	
 	public int jsGet_durability()
 	{
-		return (int)itemStack.getDurability();
+		return (int)getDelegate().getDurability();
 	}
 	
 	public int jsGet_maxStackSize()
 	{
-		return itemStack.getMaxStackSize();
+		return getDelegate().getMaxStackSize();
 	}
 	
 	public Scriptable jsGet_type()
@@ -65,22 +52,22 @@ public class JS_ItemStack extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(itemStack.getType(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().getType(), cx, scope);
 	}
 
 	public int jsGet_typeId()
 	{
-		return itemStack.getTypeId();
+		return getDelegate().getTypeId();
 	}
 	
 	public void jsSet_amount(int iAmount)
 	{
-		itemStack.setAmount(iAmount);
+		getDelegate().setAmount(iAmount);
 	}
 	
 	public void jsSet_durability(int iDurability)
 	{
-		itemStack.setDurability((short)iDurability);
+		getDelegate().setDurability((short)iDurability);
 	}
 	
 	public void jsSet_type(Scriptable material)
@@ -91,6 +78,6 @@ public class JS_ItemStack extends ScriptableObject
 		}
 		JS_Material material_ = (JS_Material)material;
 		
-		itemStack.setType(material_.material);
+		getDelegate().setType(material_.getDelegate());
 	}
 }

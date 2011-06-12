@@ -7,20 +7,15 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.mozilla.javascript.*;
 
-public class JS_Chunk extends ScriptableObject
+public class JS_Chunk extends JS_Delegate<Chunk>
 {
 	private static final long serialVersionUID = -1497062392483365857L;
-	public Chunk chunk = null;
+
 
 	public JS_Chunk()
 	{
 	}
 	
-	public void initializeFunctionProperties()
-	{
-		defineFunctionProperties(new String[] { "toString" },
-				JS_Chunk.class, DONTENUM);
-	}
 	
 	public void jsConstructor()
 	{
@@ -28,12 +23,6 @@ public class JS_Chunk extends ScriptableObject
 		{
 			throw Context.reportRuntimeError("This internal class cannot be instantiated");
 		}
-	}
-	
-	@Override
-	public String toString()
-	{
-		return chunk.toString();
 	}
 	
 	@Override
@@ -50,7 +39,7 @@ public class JS_Chunk extends ScriptableObject
 		}
 		JS_Chunk caller = (JS_Chunk)thisObj;
 		
-		return ConvertUtility.toScriptable(caller.chunk.getBlock((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2])), cx, thisObj);
+		return ConvertUtility.toScriptable(caller.getDelegate().getBlock((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2])), cx, thisObj);
 	}
 	
 	// TODO: jsGet_chunkSnapshot
@@ -60,7 +49,7 @@ public class JS_Chunk extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		Entity[] entities = chunk.getEntities();
+		Entity[] entities = getDelegate().getEntities();
 		List<Object> res = new ArrayList<Object>();
 		
 		for (Entity e : entities)
@@ -84,12 +73,12 @@ public class JS_Chunk extends ScriptableObject
 	
 	public int jsGet_x()
 	{
-		return chunk.getX();
+		return getDelegate().getX();
 	}
 	
 	public int jsGet_z()
 	{
-		return chunk.getZ();
+		return getDelegate().getZ();
 	}
 
 	public Scriptable jsGet_world()
@@ -97,6 +86,6 @@ public class JS_Chunk extends ScriptableObject
 		Context cx = Context.getCurrentContext();
 		Scriptable scope = ScriptableObject.getTopLevelScope(this);
 		
-		return ConvertUtility.toScriptable(chunk.getWorld(), cx, scope);
+		return ConvertUtility.toScriptable(getDelegate().getWorld(), cx, scope);
 	}
 }

@@ -18,7 +18,7 @@ public class JS_Vector extends ScriptableObject
 				JS_Vector.class, DONTENUM);
 	}
 	
-	public static void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
+	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{

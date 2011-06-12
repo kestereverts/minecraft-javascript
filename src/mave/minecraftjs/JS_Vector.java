@@ -18,23 +18,25 @@ public class JS_Vector extends ScriptableObject
 				JS_Vector.class, DONTENUM);
 	}
 	
-	public static void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
+	public static Scriptable jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{
-			return;
+			return new JS_Vector();
 		}
 		
-		JS_Vector caller = (JS_Vector)ctorObj;
+		JS_Vector vector = new JS_Vector();
 		
 		if (args.length < 3)
 		{
-			caller.vector = new Vector();
+			vector.vector = new Vector();
 		}
 		else
 		{
-			caller.vector = new Vector(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]));
+			vector.vector = new Vector(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]));
 		}
+		
+		return vector;
 	}
 	
 	@Override

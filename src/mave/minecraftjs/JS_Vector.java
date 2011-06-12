@@ -11,7 +11,7 @@ public class JS_Vector extends JS_Delegate<Vector>
 	{
 	}
 	
-	public static void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
+	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExp)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{

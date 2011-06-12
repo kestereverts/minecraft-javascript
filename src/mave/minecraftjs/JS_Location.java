@@ -10,8 +10,8 @@ public class JS_Location extends JS_Delegate<Location>
 	public JS_Location()
 	{
 	}
-	
-	public static void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
+
+	public void jsConstructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr)
 	{
 		if (MinecraftJS.m_bInternalConstruction)
 		{

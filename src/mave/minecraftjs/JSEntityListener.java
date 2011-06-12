@@ -399,4 +399,32 @@ public class JSEntityListener extends EntityListener
 			globalScope.delete("_event");
 		}
 	}
+	
+	@Override
+	public void onItemSpawn(ItemSpawnEvent event)
+	{
+		if (m_eventRegistration.m_eventType == Event.Type.ITEM_SPAWN)
+		{
+			m_eventRegistration.m_script.enterContext();
+			Context cx = Context.getCurrentContext();
+			Scriptable globalScope = MinecraftJS.m_currentScript.m_globalScope;
+			
+			Scriptable scope = m_eventRegistration.m_scriptFunction.getParentScope();
+			
+			Scriptable entity = null;
+			try
+			{
+				entity = ConvertUtility.entityToScriptable(event.getEntity(), cx, scope);
+			}
+			catch (IllegalArgumentException ex)
+			{
+			}
+			
+			JS_Location location = (JS_Location)ConvertUtility.toScriptable(event.getLocation(), cx, scope);
+
+			globalScope.put("_event", globalScope, ConvertUtility.toScriptable(event, cx, scope));
+			m_eventRegistration.m_scriptFunction.call(cx, MinecraftJS.m_currentScript.m_globalScope, scope, new Object[] { entity, location } );
+			globalScope.delete("_event");
+		}
+	}
 }

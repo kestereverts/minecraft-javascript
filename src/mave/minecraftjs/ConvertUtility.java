@@ -1147,7 +1147,6 @@ public class ConvertUtility
 	}
 	
 	// entity events
-	
 	public static Scriptable toScriptable(CreatureSpawnEvent e, Context cx, Scriptable scope)
 	{
 		if (e == null)
@@ -1352,6 +1351,21 @@ public class ConvertUtility
 		
 		MinecraftJS.m_bInternalConstruction = true;
 		JS_EntityTameEvent entity = (JS_EntityTameEvent)cx.newObject(scope, "EntityTameEvent");
+		MinecraftJS.m_bInternalConstruction = false;
+		entity.initializeFunctionProperties();
+		entity.event = e;
+		return entity;
+	}
+	
+	public static Scriptable toScriptable(ItemSpawnEvent e, Context cx, Scriptable scope)
+	{
+		if (e == null)
+		{
+			return null;
+		}
+		
+		MinecraftJS.m_bInternalConstruction = true;
+		JS_ItemSpawnEvent entity = (JS_ItemSpawnEvent)cx.newObject(scope, "ItemSpawnEvent");
 		MinecraftJS.m_bInternalConstruction = false;
 		entity.initializeFunctionProperties();
 		entity.event = e;

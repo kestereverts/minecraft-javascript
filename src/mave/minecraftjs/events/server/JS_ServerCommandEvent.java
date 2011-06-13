@@ -1,11 +1,9 @@
 package mave.minecraftjs.events.server;
 
 import mave.minecraftjs.MinecraftJS;
-import mave.minecraftjs.ConvertUtility;
 
 import org.bukkit.event.server.*;
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 public class JS_ServerCommandEvent extends ScriptableObject

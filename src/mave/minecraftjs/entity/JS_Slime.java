@@ -1,4 +1,6 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
+
+import mave.minecraftjs.MinecraftJS;
 
 import org.bukkit.entity.Slime;
 import org.mozilla.javascript.Context;

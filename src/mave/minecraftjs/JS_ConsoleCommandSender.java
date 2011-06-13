@@ -3,7 +3,7 @@ package mave.minecraftjs;
 import org.bukkit.command.ConsoleCommandSender;
 import org.mozilla.javascript.*;
 
-public class JS_ConsoleCommandSender extends JS_Delegate<ConsoleCommandSender>
+public class JS_ConsoleCommandSender extends JSDelegate<ConsoleCommandSender>
 {
 	private static final long serialVersionUID = -2546432603116252436L;
 

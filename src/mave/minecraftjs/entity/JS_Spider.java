@@ -1,13 +1,15 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
 
-import org.bukkit.entity.Zombie;
+import mave.minecraftjs.MinecraftJS;
+
+import org.bukkit.entity.Spider;
 import org.mozilla.javascript.Context;
 
-public class JS_Zombie extends JS_Creature<Zombie>
+public class JS_Spider extends JS_Creature<Spider>
 {
-	private static final long serialVersionUID = -7777689951607478459L;
-
-	public JS_Zombie()
+	private static final long serialVersionUID = -7023433934480942162L;
+	
+	public JS_Spider()
 	{
 	}
 	
@@ -22,7 +24,7 @@ public class JS_Zombie extends JS_Creature<Zombie>
 	@Override
 	public String getClassName()
 	{
-		return "Zombie";
+		return "Spider";
 	}
 }
 

@@ -2,6 +2,9 @@ package mave.minecraftjs;
 
 import java.net.InetAddress;
 
+import mave.minecraftjs.entity.JS_Item;
+import mave.minecraftjs.entity.JS_Player;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.player.*;
 import org.mozilla.javascript.Context;

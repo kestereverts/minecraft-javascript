@@ -1,9 +1,15 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
+
+import mave.minecraftjs.ConvertUtility;
+import mave.minecraftjs.JS_Location;
+import mave.minecraftjs.JS_Material;
+import mave.minecraftjs.MinecraftJS;
 
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
+import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -30,6 +36,8 @@ public class JS_Player extends JS_LivingEntity<Player>
 	{
 		return "Player";
 	}
+	
+	// TODO: awardAchievement
 	
 	public String jsGet_displayName()
 	{
@@ -144,7 +152,30 @@ public class JS_Player extends JS_LivingEntity<Player>
 		caller.getDelegate().playEffect(location.getDelegate(), effect, (int)Context.toNumber(args[2]));
 	}
 	
-	// TODO: sendChunkChange
+	public static void jsFunction_sendChunkChange(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 5)
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Player caller = (JS_Player)thisObj;
+		
+		if (!(args[0] instanceof JS_Location) || !(args[4] == null || args[4] instanceof NativeArray))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_Location location = (JS_Location)args[0];
+		NativeArray arr = (NativeArray)args[4];
+		
+		byte[] elements = new byte[(int)arr.getLength()];
+		int i = 0;
+		for (Object o : arr.getIds())
+		{
+		    elements[i++] = (byte)Context.toNumber(arr.get((Integer)o, null));
+		}
+		
+		caller.getDelegate().sendChunkChange(location.getDelegate(), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]), (int)Context.toNumber(args[3]), elements);
+	}
 	
 	public boolean jsGet_sneaking()
 	{
@@ -200,6 +231,7 @@ public class JS_Player extends JS_LivingEntity<Player>
 		return getDelegate().isSleepingIgnored();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void jsFunction_updateInventory()
 	{
 		getDelegate().updateInventory();

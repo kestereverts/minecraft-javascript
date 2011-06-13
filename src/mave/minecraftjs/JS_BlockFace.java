@@ -3,7 +3,7 @@ package mave.minecraftjs;
 import org.bukkit.block.BlockFace;
 import org.mozilla.javascript.*;
 
-public class JS_BlockFace extends JS_Delegate<BlockFace>
+public class JS_BlockFace extends JSDelegate<BlockFace>
 {
 	private static final long serialVersionUID = -5381627693919188543L;
 
@@ -24,7 +24,7 @@ public class JS_BlockFace extends JS_Delegate<BlockFace>
 		}
 
 		JS_BlockFace blockFace = new JS_BlockFace();
-		blockFace.setDelegate(ConvertUtility.stringToBlockFace(Context.toString(args[0])));
+		blockFace.setDelegate(BlockFace.valueOf(Context.toString(args[0]).toUpperCase()));
 		return blockFace;
 	}
 	

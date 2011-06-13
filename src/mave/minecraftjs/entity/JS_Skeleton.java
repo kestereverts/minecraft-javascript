@@ -1,13 +1,15 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
 
-import org.bukkit.entity.Giant;
+import mave.minecraftjs.MinecraftJS;
+
+import org.bukkit.entity.Skeleton;
 import org.mozilla.javascript.Context;
 
-public class JS_Giant extends JS_Creature<Giant>
+public class JS_Skeleton extends JS_Creature<Skeleton>
 {
-	private static final long serialVersionUID = -6521629923797126661L;
+	private static final long serialVersionUID = 4919154045823478334L;
 
-	public JS_Giant()
+	public JS_Skeleton()
 	{
 	}
 	
@@ -22,7 +24,7 @@ public class JS_Giant extends JS_Creature<Giant>
 	@Override
 	public String getClassName()
 	{
-		return "Giant";
+		return "Skeleton";
 	}
 }
 

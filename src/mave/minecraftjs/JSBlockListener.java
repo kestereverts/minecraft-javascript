@@ -1,5 +1,7 @@
 package mave.minecraftjs;
 
+import mave.minecraftjs.entity.JS_Player;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.block.*;
 import org.mozilla.javascript.Context;

@@ -2,17 +2,25 @@ package mave.minecraftjs;
 
 import java.util.List;
 
+import mave.minecraftjs.entity.JS_Player;
+
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.*;
 
-public class JS_Server extends JS_Delegate<Server>
+public class JS_Server extends JSDelegate<Server>
 {
 	private static final long serialVersionUID = -2837646882964431104L;
 
 	public JS_Server()
 	{
+	}
+
+	@Override
+	public String getClassName()
+	{
+		return "Server";
 	}
 	
 	public void jsConstructor()
@@ -23,11 +31,8 @@ public class JS_Server extends JS_Delegate<Server>
 		}
 	}
 	
-	@Override
-	public String getClassName()
-	{
-		return "Server";
-	}
+	// TODO: addRecipe
+	// TODO: configureDbConfig
 	
 	public static boolean jsFunction_dispatchCommand(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{
@@ -125,6 +130,10 @@ public class JS_Server extends JS_Delegate<Server>
 		return ConvertUtility.toScriptable(caller.getDelegate().getPlayer(Context.toString(args[0])), cx, thisObj);
 	}
 	
+	// TODO: getPluginCommand
+	// TODO: jsGet_scheduler
+	// TODO: jsGet_serviceManager
+	
 	public Scriptable jsGet_onlinePlayers()
 	{
 		Context cx = Context.getCurrentContext();
@@ -203,6 +212,4 @@ public class JS_Server extends JS_Delegate<Server>
 		
 		return caller.getDelegate().unloadWorld(Context.toString(args[0]), Context.toBoolean(args[1]));
 	}
-	
-	// TODO: more..
 }

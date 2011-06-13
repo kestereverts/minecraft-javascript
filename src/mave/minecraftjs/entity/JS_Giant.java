@@ -1,13 +1,15 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
 
-import org.bukkit.entity.Spider;
+import mave.minecraftjs.MinecraftJS;
+
+import org.bukkit.entity.Giant;
 import org.mozilla.javascript.Context;
 
-public class JS_Spider extends JS_Creature<Spider>
+public class JS_Giant extends JS_Creature<Giant>
 {
-	private static final long serialVersionUID = -7023433934480942162L;
-	
-	public JS_Spider()
+	private static final long serialVersionUID = -6521629923797126661L;
+
+	public JS_Giant()
 	{
 	}
 	
@@ -22,7 +24,7 @@ public class JS_Spider extends JS_Creature<Spider>
 	@Override
 	public String getClassName()
 	{
-		return "Spider";
+		return "Giant";
 	}
 }
 

@@ -2,7 +2,7 @@ package mave.minecraftjs.events.player;
 
 import mave.minecraftjs.MinecraftJS;
 import mave.minecraftjs.ConvertUtility;
-import mave.minecraftjs.JS_Player;
+import mave.minecraftjs.entity.JS_Player;
 
 import org.bukkit.event.player.*;
 import org.mozilla.javascript.Context;

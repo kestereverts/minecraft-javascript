@@ -7,7 +7,7 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.mozilla.javascript.*;
 
-public class JS_Chunk extends JS_Delegate<Chunk>
+public class JS_Chunk extends JSDelegate<Chunk>
 {
 	private static final long serialVersionUID = -1497062392483365857L;
 

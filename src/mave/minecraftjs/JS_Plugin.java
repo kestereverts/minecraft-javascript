@@ -5,7 +5,7 @@ import java.io.File;
 import org.bukkit.plugin.Plugin;
 import org.mozilla.javascript.*;
 
-public class JS_Plugin extends JS_Delegate<Plugin>
+public class JS_Plugin extends JSDelegate<Plugin>
 {
 	private static final long serialVersionUID = -5012701233247549412L;
 

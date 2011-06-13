@@ -3,7 +3,7 @@ package mave.minecraftjs;
 import org.bukkit.util.Vector;
 import org.mozilla.javascript.*;
 
-public class JS_Vector extends JS_Delegate<Vector>
+public class JS_Vector extends JSDelegate<Vector>
 {
 	private static final long serialVersionUID = -2515348271765295694L;
 

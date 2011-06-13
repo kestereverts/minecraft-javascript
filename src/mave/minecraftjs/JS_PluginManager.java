@@ -5,7 +5,7 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginManager;
 import org.mozilla.javascript.*;
 
-public class JS_PluginManager extends JS_Delegate<PluginManager>
+public class JS_PluginManager extends JSDelegate<PluginManager>
 {
 	private static final long serialVersionUID = 7329123953244324368L;
 

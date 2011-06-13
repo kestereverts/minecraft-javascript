@@ -3,7 +3,7 @@ package mave.minecraftjs;
 import org.bukkit.block.Block;
 import org.mozilla.javascript.*;
 
-public class JS_Block extends JS_Delegate<Block>
+public class JS_Block extends JSDelegate<Block>
 {
 	private static final long serialVersionUID = -7163858349183207062L;
 
@@ -109,6 +109,14 @@ public class JS_Block extends JS_Delegate<Block>
 		}
 		
 		return ConvertUtility.toScriptable(caller.getDelegate().getRelative((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2])), cx, thisObj);
+	}
+	
+	public Scriptable jsGet_state()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.toScriptable(getDelegate().getState(), cx, scope);
 	}
 	
 	public Scriptable jsGet_type()

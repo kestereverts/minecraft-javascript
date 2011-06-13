@@ -2,7 +2,7 @@ package mave.minecraftjs;
 
 import org.bukkit.Material;
 
-public class JS_Material extends JS_Delegate<Material>
+public class JS_Material extends JSDelegate<Material>
 {
 	private static final long serialVersionUID = 1425962778799611571L;
 

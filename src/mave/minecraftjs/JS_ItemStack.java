@@ -3,7 +3,7 @@ package mave.minecraftjs;
 import org.bukkit.inventory.ItemStack;
 import org.mozilla.javascript.*;
 
-public class JS_ItemStack extends JS_Delegate<ItemStack>
+public class JS_ItemStack extends JSDelegate<ItemStack>
 {
 	private static final long serialVersionUID = 8927586649880286359L;
 

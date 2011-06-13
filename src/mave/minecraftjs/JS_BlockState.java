@@ -1,9 +1,10 @@
 package mave.minecraftjs;
 
 import org.bukkit.block.BlockState;
+import org.bukkit.material.MaterialData;
 import org.mozilla.javascript.*;
 
-public class JS_BlockState extends JS_Delegate<BlockState>
+public class JS_BlockState extends JSDelegate<BlockState>
 {
 	private static final long serialVersionUID = 3946571721478265651L;
 
@@ -41,7 +42,13 @@ public class JS_BlockState extends JS_Delegate<BlockState>
 		return ConvertUtility.toScriptable(getDelegate().getChunk(), cx, scope);
 	}
 	
-	// TODO: jsGet_data
+	public Scriptable jsGet_data()
+	{
+		Context cx = Context.getCurrentContext();
+		Scriptable scope = ScriptableObject.getTopLevelScope(this);
+		
+		return ConvertUtility.materialDataToScriptable(getDelegate().getData(), cx, scope);		
+	}
 	
 	public int jsGet_lightLevel()
 	{
@@ -89,7 +96,21 @@ public class JS_BlockState extends JS_Delegate<BlockState>
 		return getDelegate().getZ();
 	}
 	
-	// TODO: jsSet_data
+	@SuppressWarnings("unchecked")
+	public void jsSet_data(Scriptable data)
+	{
+		if (!(data instanceof JSDelegate<?>))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<?> delegate = (JSDelegate<?>)data;
+		if (!(delegate.getDelegate() instanceof MaterialData))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<MaterialData> materialData = (JSDelegate<MaterialData>)delegate;
+		getDelegate().setData(materialData.getDelegate());
+	}
 	
 	public void jsSet_type(Scriptable material)
 	{

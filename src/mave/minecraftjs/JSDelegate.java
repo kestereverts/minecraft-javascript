@@ -3,19 +3,19 @@ package mave.minecraftjs;
 import org.mozilla.javascript.ScriptableObject;
 
 
-public abstract class JS_Delegate<D> extends ScriptableObject
+public abstract class JSDelegate<D> extends ScriptableObject
 {
 
 	private static final long serialVersionUID = 3691607879200730246L;
 
 	private D delegate = null;
 	
-	public JS_Delegate()
+	public JSDelegate()
 	{	
 	}
 	
 	/**
-	 * Get the underlying bukkit object for this Javascript object
+	 * Get the underlying Bukkit object for this JavaScript object
 	 * @return D
 	 */
 	public final D getDelegate()
@@ -24,7 +24,7 @@ public abstract class JS_Delegate<D> extends ScriptableObject
 	}
 	
 	/**
-	 * Set the underlying bukkit object for this Javascript object
+	 * Set the underlying Bukkit object for this JavaScript object
 	 * @param delegate
 	 */
 	protected final void setDelegate(D delegate)
@@ -38,7 +38,7 @@ public abstract class JS_Delegate<D> extends ScriptableObject
 	public void initializeFunctionProperties()
 	{
 		defineFunctionProperties(new String[] { "toString" },
-				JS_Delegate.class, DONTENUM);
+				JSDelegate.class, DONTENUM);
 	}
 	
 	

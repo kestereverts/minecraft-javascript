@@ -1,13 +1,15 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
 
-import org.bukkit.entity.PigZombie;
+import mave.minecraftjs.MinecraftJS;
+
+import org.bukkit.entity.Ghast;
 import org.mozilla.javascript.Context;
 
-public class JS_PigZombie extends JS_Creature<PigZombie>
+public class JS_Ghast extends JS_LivingEntity<Ghast>
 {
-	private static final long serialVersionUID = -6162219401777036269L;
+	private static final long serialVersionUID = 2103388763706316682L;
 
-	public JS_PigZombie()
+	public JS_Ghast()
 	{
 	}
 	
@@ -22,7 +24,9 @@ public class JS_PigZombie extends JS_Creature<PigZombie>
 	@Override
 	public String getClassName()
 	{
-		return "PigZombie";
+		return "Ghast";
 	}
+	
+	
 }
 

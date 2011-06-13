@@ -1,4 +1,8 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
+
+import mave.minecraftjs.ConvertUtility;
+import mave.minecraftjs.JS_ItemStack;
+import mave.minecraftjs.MinecraftJS;
 
 import org.bukkit.entity.Item;
 import org.mozilla.javascript.Context;
@@ -26,7 +30,6 @@ public class JS_Item extends JS_Entity<Item>
 	{
 		return "Item";
 	}
-	
 	
 	public Scriptable jsGet_itemStack()
 	{

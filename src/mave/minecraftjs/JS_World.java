@@ -15,7 +15,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.*;
 
-public class JS_World extends JS_Delegate<World>
+public class JS_World extends JSDelegate<World>
 {
 	private static final long serialVersionUID = 8424835903715717677L;
 
@@ -73,7 +73,7 @@ public class JS_World extends JS_Delegate<World>
 		return ConvertUtility.toScriptable(caller.getDelegate().dropItemNaturally(location.getDelegate(), itemStack.getDelegate()), cx, thisObj);
 	}
 	
-	public static boolean isFunction_generateTree(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	public static boolean jsFunction_generateTree(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{
 		if (args.length < 2)
 		{
@@ -87,7 +87,7 @@ public class JS_World extends JS_Delegate<World>
 		}
 		JS_Location location = (JS_Location)args[0];
 		
-		TreeType treeType = ConvertUtility.stringToTreeType(Context.toString(args[1]));
+		TreeType treeType = TreeType.valueOf(Context.toString(args[1]).toUpperCase());
 		return caller.getDelegate().generateTree(location.getDelegate(), treeType);
 	}
 	
@@ -206,6 +206,8 @@ public class JS_World extends JS_Delegate<World>
 		return getDelegate().getFullTime();
 	}
 	
+	// TODO: jsGet_generator
+	
 	public static int jsFunction_getHighestBlockYAt(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{
 		if (args.length < 1)
@@ -323,6 +325,8 @@ public class JS_World extends JS_Delegate<World>
 		return cx.newArray(scope, res.toArray());
 	}
 	
+	// TODO: jsGet_populators
+	
 	public boolean jsGet_pvp()
 	{
 		return getDelegate().getPVP();
@@ -356,7 +360,7 @@ public class JS_World extends JS_Delegate<World>
 		return getDelegate().getWeatherDuration();
 	}
 	
-	public boolean jsGet_storm()
+	public boolean jsGet_hasStorm()
 	{
 		return getDelegate().hasStorm();
 	}
@@ -486,7 +490,7 @@ public class JS_World extends JS_Delegate<World>
 		return caller.getDelegate().setSpawnLocation((int)Context.toNumber(args[0]), (int)Context.toNumber(args[1]), (int)Context.toNumber(args[2]));
 	}
 	
-	public void jsSet_storm(boolean bStorm)
+	public void jsSet_hasStorm(boolean bStorm)
 	{
 		getDelegate().setStorm(bStorm);
 	}
@@ -509,6 +513,20 @@ public class JS_World extends JS_Delegate<World>
 	public void jsSet_weatherDuration(int iDuration)
 	{
 		getDelegate().setWeatherDuration(iDuration);
+	}
+	
+	// TODO: spawn*
+	
+	public static Scriptable jsFunction_strikeLightning(Context cx, Scriptable thisObj, Object[] args, Function funObj)
+	{
+		if (args.length < 1 || !(args[0] instanceof JS_Location))
+		{
+			throw new IllegalArgumentException();
+		}
+		JS_World caller = (JS_World)thisObj;
+		JS_Location location = (JS_Location)args[0];
+		
+		return ConvertUtility.toScriptable(caller.getDelegate().strikeLightning(location.getDelegate()), cx, thisObj);
 	}
 	
 	public static boolean jsFunction_unloadChunk(Context cx, Scriptable thisObj, Object[] args, Function funObj)
@@ -569,9 +587,6 @@ public class JS_World extends JS_Delegate<World>
 		
 		return caller.getDelegate().createExplosion(Context.toNumber(args[0]), Context.toNumber(args[1]), Context.toNumber(args[2]), (float)Context.toNumber(args[3]));
 	}
-	
-	// TODO: jsGet_generator
-	// TODO: jsGet_populators
 	
 	public static void jsFunction_playEffect(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{

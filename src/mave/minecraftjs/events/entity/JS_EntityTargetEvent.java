@@ -1,8 +1,10 @@
 package mave.minecraftjs.events.entity;
 
+import mave.minecraftjs.JSDelegate;
 import mave.minecraftjs.MinecraftJS;
 import mave.minecraftjs.ConvertUtility;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.*;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -74,8 +76,19 @@ public class JS_EntityTargetEvent extends ScriptableObject
 		event.setCancelled(bCancelled);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void jsSet_target(Scriptable target)
 	{
-		event.setTarget(ConvertUtility.scriptableToEntity(target));
+		if (!(target instanceof JSDelegate))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<?> delegate = (JSDelegate<?>)target;
+		if (!(delegate.getDelegate() instanceof Entity))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<Entity> entity = (JSDelegate<Entity>)delegate;
+		event.setTarget(entity.getDelegate());
 	}
 }

@@ -11,10 +11,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import mave.minecraftjs.entity.JS_Creeper;
+import mave.minecraftjs.entity.JS_Ghast;
+import mave.minecraftjs.entity.JS_Giant;
+import mave.minecraftjs.entity.JS_Item;
+import mave.minecraftjs.entity.JS_LightningStrike;
+import mave.minecraftjs.entity.JS_Painting;
+import mave.minecraftjs.entity.JS_PigZombie;
+import mave.minecraftjs.entity.JS_Player;
+import mave.minecraftjs.entity.JS_Skeleton;
+import mave.minecraftjs.entity.JS_Slime;
+import mave.minecraftjs.entity.JS_Spider;
+import mave.minecraftjs.entity.JS_Zombie;
 import mave.minecraftjs.events.block.*;
 import mave.minecraftjs.events.entity.*;
 import mave.minecraftjs.events.player.*;
 import mave.minecraftjs.events.world.*;
+
+import mave.minecraftjs.material.*;
 
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -158,6 +172,38 @@ public class Script
 			ScriptableObject.defineClass(m_globalScope, JS_Item.class, false, true);
 			ScriptableObject.defineClass(m_globalScope, JS_LightningStrike.class, false, true);
 			ScriptableObject.defineClass(m_globalScope, JS_Painting.class, false, true);
+			
+			ScriptableObject.defineClass(m_globalScope, JS_Bed.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Button.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Cake.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Coal.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Crops.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_DetectorRail.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Diode.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Dispenser.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Door.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Dye.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_ExtendedRails.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Furnace.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Jukebox.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Ladder.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Leaves.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Lever.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_LongGrass.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_MaterialData.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_PoweredRail.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_PressurePlate.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Pumpkin.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Rails.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_RedstoneTorch.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_RedstoneWire.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Sign.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Stairs.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Step.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Torch.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_TrapDoor.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Tree.class, false, true);
+			ScriptableObject.defineClass(m_globalScope, JS_Wool.class, false, true);
 			
 			ScriptableObject.defineClass(m_globalScope, JS_Server.class, false, true);
 			ScriptableObject.defineClass(m_globalScope, JS_World.class, false, true);

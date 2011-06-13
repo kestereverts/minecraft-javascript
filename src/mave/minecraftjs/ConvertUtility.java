@@ -15,9 +15,11 @@ import org.bukkit.event.server.*;
 
 import org.bukkit.*;
 import org.bukkit.block.*;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.*;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.util.Vector;
@@ -25,152 +27,8 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
 public class ConvertUtility
-{
-	public static TreeType stringToTreeType(String s)
-	{
-		s = s.toLowerCase();
-		if (s.equals("tree"))
-		{
-			return TreeType.TREE;
-		}
-		else if (s.equals("big") || s.equals("bigtree") || s.equals("big_tree"))
-		{
-			return TreeType.BIG_TREE;
-		}
-		else if (s.equals("birch"))
-		{
-			return TreeType.BIRCH;
-		}
-		else if (s.equals("redwood"))
-		{
-			return TreeType.REDWOOD;
-		}
-		else if (s.equals("tallredwood") || s.equals("tall_redwood"))
-		{
-			return TreeType.TALL_REDWOOD;
-		}
-		
-		throw new IllegalArgumentException();
-	}
-	
-	public static BlockFace stringToBlockFace(String s)
-	{
-		s = s.toLowerCase();
-		if (s.equals("north"))
-		{
-			return BlockFace.NORTH;
-		}
-		else if (s.equals("east"))
-		{
-			return BlockFace.EAST;
-		}
-		else if (s.equals("south"))
-		{
-			return BlockFace.SOUTH;
-		}
-		else if (s.equals("west"))
-		{
-			return BlockFace.WEST;
-		}
-		else if (s.equals("northeast") || s.equals("north-east") || s.equals("north_east"))
-		{
-			return BlockFace.NORTH_EAST;
-		}
-		else if (s.equals("northwest") || s.equals("north-west") || s.equals("north_west"))
-		{
-			return BlockFace.NORTH_WEST;
-		}
-		else if (s.equals("southeast") || s.equals("south-east") || s.equals("south_east"))
-		{
-			return BlockFace.SOUTH_EAST;
-		}
-		else if (s.equals("southwest") || s.equals("south-west") || s.equals("south_west"))
-		{
-			return BlockFace.SOUTH_WEST;
-		}
-		else if (s.equals("self"))
-		{
-			return BlockFace.SELF;
-		}
-		else if (s.equals("up"))
-		{
-			return BlockFace.UP;
-		}
-		else if (s.equals("down"))
-		{
-			return BlockFace.DOWN;
-		}
-		
-		throw new IllegalArgumentException();
-	}
-	
-	public static Entity scriptableToEntity(Scriptable s)
-	{
-		if (s instanceof JS_Player)
-		{
-			JS_Player entity = (JS_Player)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Zombie)
-		{
-			JS_Zombie entity = (JS_Zombie)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Skeleton)
-		{
-			JS_Skeleton entity = (JS_Skeleton)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Spider)
-		{
-			JS_Spider entity = (JS_Spider)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Creeper)
-		{
-			JS_Creeper entity = (JS_Creeper)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Slime)
-		{
-			JS_Slime entity = (JS_Slime)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Ghast)
-		{
-			JS_Ghast entity = (JS_Ghast)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_PigZombie)
-		{
-			JS_PigZombie entity = (JS_PigZombie)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Giant)
-		{
-			JS_Giant entity = (JS_Giant)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Item)
-		{
-			JS_Item entity = (JS_Item)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_LightningStrike)
-		{
-			JS_LightningStrike entity = (JS_LightningStrike)s;
-			return entity.getDelegate();
-		}
-		else if (s instanceof JS_Painting)
-		{
-			JS_Painting entity = (JS_Painting)s;
-			return entity.getDelegate();
-		}
-
-		throw new IllegalArgumentException();
-	}
-	
-	public static Scriptable entityToScriptable(Entity e, Context cx, Scriptable scope)
+{	
+	public static <T extends Entity> Scriptable entityToScriptable(T e, Context cx, Scriptable scope)
 	{
 		if (e == null)
 		{
@@ -181,35 +39,35 @@ public class ConvertUtility
 		{
 			return toScriptable((Player)e, cx, scope);
 		}
-		if (e instanceof Zombie)
+		else if (e instanceof Zombie)
 		{
 			return toScriptable((Zombie)e, cx, scope);
 		}
-		if (e instanceof Skeleton)
+		else if (e instanceof Skeleton)
 		{
 			return toScriptable((Skeleton)e, cx, scope);
 		}
-		if (e instanceof Spider)
+		else if (e instanceof Spider)
 		{
 			return toScriptable((Spider)e, cx, scope);
 		}
-		if (e instanceof Creeper)
+		else if (e instanceof Creeper)
 		{
 			return toScriptable((Creeper)e, cx, scope);
 		}
-		if (e instanceof Slime)
+		else if (e instanceof Slime)
 		{
 			return toScriptable((Slime)e, cx, scope);
 		}
-		if (e instanceof Ghast)
+		else if (e instanceof Ghast)
 		{
 			return toScriptable((Ghast)e, cx, scope);
 		}
-		if (e instanceof PigZombie)
+		else if (e instanceof PigZombie)
 		{
 			return toScriptable((PigZombie)e, cx, scope);
 		}
-		if (e instanceof Giant)
+		else if (e instanceof Giant)
 		{
 			return toScriptable((Giant)e, cx, scope);
 		}
@@ -228,380 +86,254 @@ public class ConvertUtility
 		
 		throw new IllegalArgumentException();
 	}
-	
-	public static Scriptable toScriptable(Player p, Context cx, Scriptable scope)
-	{
-		if (p == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Player entity = (JS_Player)cx.newObject(scope, "Player");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(p);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Zombie z, Context cx, Scriptable scope)
-	{
-		if (z == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Zombie entity = (JS_Zombie)cx.newObject(scope, "Zombie");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(z);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Skeleton s, Context cx, Scriptable scope)
-	{
-		if (s == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Skeleton entity = (JS_Skeleton)cx.newObject(scope, "Skeleton");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(s);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Spider s, Context cx, Scriptable scope)
-	{
-		if (s == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Spider entity = (JS_Spider)cx.newObject(scope, "Spider");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(s);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Creeper c, Context cx, Scriptable scope)
-	{
-		if (c == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Creeper entity = (JS_Creeper)cx.newObject(scope, "Creeper");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(c);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Slime s, Context cx, Scriptable scope)
-	{
-		if (s == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Slime entity = (JS_Slime)cx.newObject(scope, "Slime");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(s);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Ghast g, Context cx, Scriptable scope)
-	{
-		if (g == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Ghast entity = (JS_Ghast)cx.newObject(scope, "Ghast");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(g);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(PigZombie p, Context cx, Scriptable scope)
-	{
-		if (p == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_PigZombie entity = (JS_PigZombie)cx.newObject(scope, "PigZombie");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(p);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Giant g, Context cx, Scriptable scope)
-	{
-		if (g == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Giant entity = (JS_Giant)cx.newObject(scope, "Giant");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(g);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Item i, Context cx, Scriptable scope)
-	{
-		if (i == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Item entity = (JS_Item)cx.newObject(scope, "Item");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(i);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(LightningStrike s, Context cx, Scriptable scope)
-	{
-		if (s == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_LightningStrike entity = (JS_LightningStrike)cx.newObject(scope, "LightningStrike");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(s);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Painting p, Context cx, Scriptable scope)
-	{
-		if (p == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Painting entity = (JS_Painting)cx.newObject(scope, "Painting");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(p);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Block b, Context cx, Scriptable scope)
-	{
-		if (b == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Block entity = (JS_Block)cx.newObject(scope, "Block");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(b);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Location l, Context cx, Scriptable scope)
-	{
-		if (l == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Location entity = (JS_Location)cx.newObject(scope, "Location");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(l);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Server s, Context cx, Scriptable scope)
-	{
-		if (s == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Server entity = (JS_Server)cx.newObject(scope, "Server");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(s);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(World w, Context cx, Scriptable scope)
-	{
-		if (w == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_World entity = (JS_World)cx.newObject(scope, "World");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(w);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(ItemStack i, Context cx, Scriptable scope)
-	{
-		if (i == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_ItemStack entity = (JS_ItemStack)cx.newObject(scope, "ItemStack");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(i);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(PluginManager p, Context cx, Scriptable scope)
-	{
-		if (p == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_PluginManager entity = (JS_PluginManager)cx.newObject(scope, "PluginManager");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(p);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Material m, Context cx, Scriptable scope)
+
+	public static Scriptable materialDataToScriptable(MaterialData m, Context cx, Scriptable scope)
 	{
 		if (m == null)
 		{
 			return null;
 		}
 		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Material entity = (JS_Material)cx.newObject(scope, "Material");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(m);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Chunk c, Context cx, Scriptable scope)
-	{
-		if (c == null)
+		if (m instanceof Bed)
 		{
-			return null;
+			return toScriptable("Bed", m, cx, scope);
+		}
+		else if (m instanceof Button)
+		{
+			return toScriptable("Button", m, cx, scope);
+		}
+		else if (m instanceof Cake)
+		{
+			return toScriptable("Cake", m, cx, scope);
+		}
+		else if (m instanceof Coal)
+		{
+			return toScriptable("Coal", m, cx, scope);
+		}
+		else if (m instanceof Crops)
+		{
+			return toScriptable("Crops", m, cx, scope);
+		}
+		else if (m instanceof DetectorRail)
+		{
+			return toScriptable("DetectorRail", m, cx, scope);
+		}
+		else if (m instanceof Diode)
+		{
+			return toScriptable("Diode", m, cx, scope);
+		}
+		else if (m instanceof org.bukkit.material.Dispenser)
+		{
+			return toScriptable("Dispenser", m, cx, scope);
+		}
+		else if (m instanceof Door)
+		{
+			return toScriptable("Door", m, cx, scope);
+		}
+		else if (m instanceof Dye)
+		{
+			return toScriptable("Dye", m, cx, scope);
+		}
+		// ExtendedRails??
+		else if (m instanceof org.bukkit.material.Furnace)
+		{
+			return toScriptable("Furnace", m, cx, scope);
+		}
+		// FurnaceAndDispenser??
+		else if (m instanceof Jukebox)
+		{
+			return toScriptable("Jukebox", m, cx, scope);
+		}
+		else if (m instanceof Ladder)
+		{
+			return toScriptable("Ladder", m, cx, scope);
+		}
+		else if (m instanceof Leaves)
+		{
+			return toScriptable("Leaves", m, cx, scope);
+		}
+		else if (m instanceof LongGrass)
+		{
+			return toScriptable("LongGrass", m, cx, scope);
+		}
+		else if (m instanceof PoweredRail)
+		{
+			return toScriptable("PoweredRail", m, cx, scope);
+		}
+		else if (m instanceof PressurePlate)
+		{
+			return toScriptable("PressurePlate", m, cx, scope);
+		}
+		else if (m instanceof Pumpkin)
+		{
+			return toScriptable("Pumpkin", m, cx, scope);
+		}
+		else if (m instanceof Rails)
+		{
+			return toScriptable("Rails", m, cx, scope);
+		}
+		else if (m instanceof RedstoneTorch)
+		{
+			return toScriptable("RedstoneTorch", m, cx, scope);
+		}
+		else if (m instanceof RedstoneWire)
+		{
+			return toScriptable("RedstoneWire", m, cx, scope);
+		}
+		else if (m instanceof org.bukkit.material.Sign)
+		{
+			return toScriptable("Sign", m, cx, scope);
+		}
+		// SimpleAttachableMaterialData??
+		else if (m instanceof Stairs)
+		{
+			return toScriptable("Stairs", m, cx, scope);
+		}
+		else if (m instanceof Step)
+		{
+			return toScriptable("Step", m, cx, scope);
 		}
 		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Chunk entity = (JS_Chunk)cx.newObject(scope, "Chunk");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(c);
-		return entity;
+		return toScriptable("MaterialData", m, cx, scope);
 	}
 	
-	public static Scriptable toScriptable(Vector v, Context cx, Scriptable scope)
-	{
-		if (v == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Vector entity = (JS_Vector)cx.newObject(scope, "Vector");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(v);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(BlockFace b, Context cx, Scriptable scope)
-	{
-		if (b == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_BlockFace entity = (JS_BlockFace)cx.newObject(scope, "BlockFace");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(b);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(BlockState b, Context cx, Scriptable scope)
-	{
-		if (b == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_BlockState entity = (JS_BlockState)cx.newObject(scope, "BlockState");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(b);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(Plugin p, Context cx, Scriptable scope)
-	{
-		if (p == null)
-		{
-			return null;
-		}
-		
-		MinecraftJS.m_bInternalConstruction = true;
-		JS_Plugin entity = (JS_Plugin)cx.newObject(scope, "Plugin");
-		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(p);
-		return entity;
-	}
-	
-	public static Scriptable toScriptable(ConsoleCommandSender s, Context cx, Scriptable scope)
+	public static Scriptable commandSenderToScriptable(CommandSender s, Context cx, Scriptable scope)
 	{
 		if (s == null)
 		{
 			return null;
 		}
 		
+		if (s instanceof Player)
+		{
+			return toScriptable((Player)s, cx, scope);
+		}
+		else if (s instanceof ConsoleCommandSender)
+		{
+			return toScriptable((ConsoleCommandSender)s, cx, scope);
+		}
+		
+		throw new IllegalArgumentException();
+	}
+	
+	// entity conversions
+	public static JSDelegate<Creeper> toScriptable(Creeper obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Creeper", obj, cx, scope);
+	}
+	public static JSDelegate<Ghast> toScriptable(Ghast obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Ghast", obj, cx, scope);
+	}
+	public static JSDelegate<Giant> toScriptable(Giant obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Giant", obj, cx, scope);
+	}
+	public static JSDelegate<Item> toScriptable(Item obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Item", obj, cx, scope);
+	}
+	public static JSDelegate<LightningStrike> toScriptable(LightningStrike obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("LightningStrike", obj, cx, scope);
+	}
+	public static JSDelegate<Painting> toScriptable(Painting obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Painting", obj, cx, scope);
+	}
+	public static JSDelegate<PigZombie> toScriptable(PigZombie obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("PigZombie", obj, cx, scope);
+	}
+	public static JSDelegate<Player> toScriptable(Player obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Player", obj, cx, scope);
+	}
+	public static JSDelegate<Skeleton> toScriptable(Skeleton obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Skeleton", obj, cx, scope);
+	}
+	public static JSDelegate<Slime> toScriptable(Slime obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Slime", obj, cx, scope);
+	}
+	public static JSDelegate<Spider> toScriptable(Spider obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Spider", obj, cx, scope);
+	}
+	public static JSDelegate<Zombie> toScriptable(Zombie obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Skeleton", obj, cx, scope);
+	}
+	
+	// non-entity conversions
+	public static JSDelegate<Block> toScriptable(Block obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Block", obj, cx, scope);
+	}
+	public static JSDelegate<BlockFace> toScriptable(BlockFace obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("BlockFace", obj, cx, scope);
+	}
+	public static JSDelegate<BlockState> toScriptable(BlockState obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("BlockState", obj, cx, scope);
+	}
+	public static JSDelegate<Chunk> toScriptable(Chunk obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Chunk", obj, cx, scope);
+	}
+	public static JSDelegate<ConsoleCommandSender> toScriptable(ConsoleCommandSender obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("ConsoleCommandSender", obj, cx, scope);
+	}
+	public static JSDelegate<ItemStack> toScriptable(ItemStack obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("ItemStack", obj, cx, scope);
+	}
+	public static JSDelegate<Location> toScriptable(Location obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Location", obj, cx, scope);
+	}
+	public static JSDelegate<Material> toScriptable(Material obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Material", obj, cx, scope);
+	}
+	public static JSDelegate<Plugin> toScriptable(Plugin obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Plugin", obj, cx, scope);
+	}
+	public static JSDelegate<PluginManager> toScriptable(PluginManager obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("PluginManager", obj, cx, scope);
+	}
+	public static JSDelegate<Server> toScriptable(Server obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Server", obj, cx, scope);
+	}
+	public static JSDelegate<Vector> toScriptable(Vector obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("Vector", obj, cx, scope);
+	}
+	public static JSDelegate<World> toScriptable(World obj, Context cx, Scriptable scope)
+	{
+		return toScriptable("World", obj, cx, scope);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> JSDelegate<T> toScriptable(String s, T obj, Context cx, Scriptable scope)
+	{
+		if (obj == null)
+		{
+			return null;
+		}
+		
 		MinecraftJS.m_bInternalConstruction = true;
-		JS_ConsoleCommandSender entity = (JS_ConsoleCommandSender)cx.newObject(scope, "ConsoleCommandSender");
+		JSDelegate<T> newObj = (JSDelegate<T>)cx.newObject(scope, s);
 		MinecraftJS.m_bInternalConstruction = false;
-		entity.initializeFunctionProperties();
-		entity.setDelegate(s);
-		return entity;
+		newObj.initializeFunctionProperties();
+		newObj.setDelegate(obj);
+		return newObj;
 	}
 	
 	// player events

@@ -1,5 +1,10 @@
 package mave.minecraftjs;
 
+import mave.minecraftjs.entity.JS_LightningStrike;
+import mave.minecraftjs.entity.JS_Painting;
+import mave.minecraftjs.entity.JS_PigZombie;
+import mave.minecraftjs.entity.JS_Player;
+
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;

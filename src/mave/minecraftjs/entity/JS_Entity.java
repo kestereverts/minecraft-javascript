@@ -1,5 +1,9 @@
-package mave.minecraftjs;
+package mave.minecraftjs.entity;
 
+import mave.minecraftjs.ConvertUtility;
+import mave.minecraftjs.JSDelegate;
+import mave.minecraftjs.JS_Location;
+import mave.minecraftjs.JS_Vector;
 import mave.minecraftjs.events.entity.JS_EntityDamageEvent;
 
 import org.bukkit.entity.Entity;
@@ -8,7 +12,7 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-public class JS_Entity<D extends Entity> extends JS_Delegate<D>
+public class JS_Entity<D extends Entity> extends JSDelegate<D>
 {
 	private static final long serialVersionUID = -4403484561023154666L;
 
@@ -76,12 +80,22 @@ public class JS_Entity<D extends Entity> extends JS_Delegate<D>
 			JS_Location location = (JS_Location)args[0];
 			return caller.getDelegate().teleport(location.getDelegate());
 		}
+
+		if (!(args[0] instanceof JSDelegate))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<?> delegate = (JSDelegate<?>)args[0];
+		if (!(delegate.getDelegate() instanceof Entity))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<Entity> entity = (JSDelegate<Entity>)delegate;
 		
-		Entity entity = ConvertUtility.scriptableToEntity((Scriptable)args[0]);
-		return caller.getDelegate().teleport(entity);
+		return caller.getDelegate().teleport(entity.getDelegate());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public final static void jsFunction_teleportTo(Context cx, Scriptable thisObj, Object[] args, Function funObj)
 	{
 		if (args.length < 1)
@@ -95,9 +109,19 @@ public class JS_Entity<D extends Entity> extends JS_Delegate<D>
 			JS_Location location = (JS_Location)args[0];
 			caller.getDelegate().teleportTo(location.getDelegate());
 		}
+
+		if (!(args[0] instanceof JSDelegate))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<?> delegate = (JSDelegate<?>)args[0];
+		if (!(delegate.getDelegate() instanceof Entity))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<Entity> entity = (JSDelegate<Entity>)delegate;
 		
-		Entity entity = ConvertUtility.scriptableToEntity((Scriptable)args[0]);
-		caller.getDelegate().teleportTo(entity);
+		caller.getDelegate().teleportTo(entity.getDelegate());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -192,8 +216,18 @@ public class JS_Entity<D extends Entity> extends JS_Delegate<D>
 		}
 		JS_Entity<Entity> caller = (JS_Entity<Entity>)thisObj;
 		
-		Entity entity = ConvertUtility.scriptableToEntity((Scriptable)args[0]);
-		return caller.getDelegate().setPassenger(entity);
+		if (!(args[0] instanceof JSDelegate))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<?> delegate = (JSDelegate<?>)args[0];
+		if (!(delegate.getDelegate() instanceof Entity))
+		{
+			throw new IllegalArgumentException();
+		}
+		JSDelegate<Entity> entity = (JSDelegate<Entity>)delegate;
+		
+		return caller.getDelegate().setPassenger(entity.getDelegate());
 	}
 	
 	public final boolean jsGet_empty()

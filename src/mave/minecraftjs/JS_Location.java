@@ -3,7 +3,7 @@ package mave.minecraftjs;
 import org.bukkit.Location;
 import org.mozilla.javascript.*;
 
-public class JS_Location extends JS_Delegate<Location>
+public class JS_Location extends JSDelegate<Location>
 {
 	private static final long serialVersionUID = -3997078490396540883L;
 
